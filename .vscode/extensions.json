@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "jchannon.csharpextensions",
+    "k--kato.docomment",
+    "Leopotam.csharpfixformat",
+    "ms-vscode.csharp",
+    "DotJoshJohnson.xml",
+    "esbenp.prettier-vscode",
+    "lucasazzola.vscode-csproj",
+    "PeterJausovec.vscode-docker",
+    "p1c2u.docker-compose",
+    "MS-CEINTL.vscode-language-pack-ja",
+    "rebornix.project-snippets",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "node_modules": true,
+    "**/dist": true,
+    "**/bin": true,
+    "**/obj": true
+  },
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "csharpfixformat.style.braces.onSameLine": false,
+  "csharpfixformat.style.spaces.beforeParenthesis": false,
+  "csharpfixformat.style.spaces.beforeIndexerBracket": false,
+  "editor.tabCompletion": true,
+  "prettier.semi": true,
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.disableLanguages": ["jchannon.csharpextensions"],
+  "csproj.excludeRegex": "*.cs",
+"cSpell.words": [
+    "CQRS",
+    "nuget"
+]
+}
