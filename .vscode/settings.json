@@ -24,7 +24,9 @@
   "prettier.disableLanguages": ["jchannon.csharpextensions"],
   "csproj.excludeRegex": "*.cs",
 "cSpell.words": [
+    "Autofac",
     "CQRS",
+    "msgs",
     "nuget"
 ]
 }

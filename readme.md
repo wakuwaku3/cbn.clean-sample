@@ -55,4 +55,6 @@ npm start
 - 可能な限りコンストラクタ解決で実装する
 - IDisposable なオブジェクト等、インスタンス生成にオーバーヘッドがある場合、解決する時 Lazy で実装する
 - ドメイン層、インフラストラクチャ層以下のオブジェクトはスレッドセーフに実装する
-- LifetimeCycle の優先度は singleton > instance とする
+- LifetimeCycle の優先度は singleton > lifetime > instance とする
+- using はドメイン層以下には記述しない
+- try-catch は 基盤 で対応するためできるだけ書かない

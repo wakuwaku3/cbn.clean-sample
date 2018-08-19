@@ -5,15 +5,41 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Cbn.DDDSample.Web",
+      "name": ".NET Core Launch (web)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/Cbn.DDDSample.Web/bin/Debug/netcoreapp2.0/Cbn.DDDSample.Web.dll",
-      "args": ["-n", "test"],
-      "cwd": "${workspaceRoot}/Cbn.DDDSample.Web",
+      "args": [],
+      "cwd": "${workspaceFolder}/Cbn.DDDSample.Web",
       "stopAtEntry": false,
-      "console": "internalConsole"
+      "internalConsoleOptions": "openOnSessionStart",
+      "launchBrowser": {
+        "enabled": true,
+        "args": "${auto-detect-url}",
+        "windows": {
+          "command": "cmd.exe",
+          "args": "/C start ${auto-detect-url}"
+        },
+        "osx": {
+          "command": "open"
+        },
+        "linux": {
+          "command": "xdg-open"
+        }
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Cbn.DDDSample.Web/Views"
+      }
+    },
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}"
     }
   ]
 }
