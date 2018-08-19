@@ -7,7 +7,7 @@
     <UserSecretsId>dddsample-web-secret</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
+    <ProjectReference Include="..\Cbn.DDDSample.Application\Cbn.DDDSample.Application.csproj" />
     <ProjectReference Include="..\Cbn.Infrastructure.AspNetCore\Cbn.Infrastructure.AspNetCore.csproj" />
   </ItemGroup>
   <ItemGroup>

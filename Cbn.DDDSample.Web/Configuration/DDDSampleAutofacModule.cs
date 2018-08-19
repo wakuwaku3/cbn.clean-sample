@@ -1,10 +1,13 @@
 using System;
 using Autofac;
+using Cbn.DDDSample.Application.Configuration;
+using Cbn.DDDSample.Domain.Configuration;
 using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
+using Cbn.Infrastructure.DDDSampleData.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -31,38 +34,14 @@ namespace Cbn.DDDSample.Web.Configuration
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(this.commonAutofacModule);
+            builder.RegisterModule(new DDDSampleDataAutofacModule());
+            builder.RegisterModule(new DDDSampleDomainAutofacModule());
+            builder.RegisterModule(new DDDSampleApplicationAutofacModule());
             builder.RegisterInstance(this.configurationRoot).As<IConfigurationRoot>().SingleInstance();
             builder.RegisterType<DDDSampleWebConfig>()
                 .As<IDDDSampleWebConfig>()
                 .As<IWebConfig>()
                 .SingleInstance();
-            builder.RegisterType<Service>()
-                .As<IService1>()
-                .InstancePerLifetimeScope();
-            builder.RegisterType<Service>()
-                .As<IService2>()
-                .InstancePerMatchingLifetimeScope("scope1");
-            builder.RegisterType<Service>()
-                .As<IService3>()
-                .InstancePerMatchingLifetimeScope("scope2");
-            builder.RegisterType<Service>()
-                .As<IService4>()
-                .InstancePerDependency();
-            builder.RegisterType<Service>()
-                .As<IService5>()
-                .SingleInstance();
         }
-    }
-    interface IService1
-    {
-        Guid Guid { get; }
-    }
-    interface IService2 : IService1 { }
-    interface IService3 : IService2 { }
-    interface IService4 : IService3 { }
-    interface IService5 : IService4 { }
-    class Service : IService5
-    {
-        public Guid Guid { get; } = Guid.NewGuid();
     }
 }
