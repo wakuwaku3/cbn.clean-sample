@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Cbn.DDDSample.Web.Configuration;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +30,7 @@ namespace Cbn.DDDSample.Web.Controllers
                     }
                 }
             }
-            return "home-index";
+            return "home-index2";
         }
         static void Write(IScope scope, string name)
         {

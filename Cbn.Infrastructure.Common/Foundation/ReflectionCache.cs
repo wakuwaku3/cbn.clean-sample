@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 
-namespace Cbn.Infrastructure.Common.Foundation.Reflection
+namespace Cbn.Infrastructure.Common.Foundation
 {
     /// <summary>
     /// ReflectionCache

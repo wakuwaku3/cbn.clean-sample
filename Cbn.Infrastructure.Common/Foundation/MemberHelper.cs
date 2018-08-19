@@ -22,94 +22,108 @@ namespace Cbn.Infrastructure.Common.Foundation
             this.reflectionCache = reflectionCache;
         }
         /// <summary>
-        /// オブジェクトの型情報よりMemberInfoを取得する
+        /// 指定したプロパティまたはフィールドから値を取得する
         /// </summary>
-        /// <typeparam name="T">型</typeparam>
-        /// <typeparam name="TMember">メンバーの型</typeparam>
-        /// <param name="expression">オブジェクトからメンバーを選択するための式木</param>
-        /// <returns>MemberInfo</returns>
-        public MemberInfo GetMember<T, TMember>(Expression<Func<T, TMember>> expression)
+        public TResult Get<T, TResult>(T obj, string propertyOrFieldName)
         {
-            return ((MemberExpression) expression.Body).Member;
+            var memberInfo = this.GetMemberInfo(typeof(T), propertyOrFieldName);
+            return default(TResult);
         }
         /// <summary>
-        /// オブジェクトの型情報よりMemberInfoを取得する
+        /// 指定したプロパティから値を取得する
         /// </summary>
-        /// <typeparam name="T">型</typeparam>
-        /// <typeparam name="TMember">メンバーの型</typeparam>
-        /// <param name="obj">オブジェクト</param>
-        /// <param name="expression">オブジェクトからメンバーを選択するための式木</param>
-        /// <returns>MemberInfo</returns>
-        public MemberInfo GetMember<T, TMember>(T obj, Expression<Func<T, TMember>> expression)
+        public TResult Get<TResult>(object obj, PropertyInfo propertyInfo)
         {
-            return GetMember(expression);
+            return (TResult) Get(obj, propertyInfo);
         }
         /// <summary>
-        /// 指定したメンバーから値を取得する
+        /// 指定したフィールドから値を取得する
         /// </summary>
-        /// <typeparam name="T">メンバーを持つオブジェクトの型</typeparam>
-        /// <typeparam name="TResult">メンバーの型</typeparam>
-        /// <param name="obj">メンバーを持つオブジェクト</param>
-        /// <param name="memberName">メンバー名</param>
-        /// <returns>メンバーの値</returns>
-        public TResult Get<T, TResult>(T obj, string memberName)
+        public TResult Get<TResult>(object obj, FieldInfo fieldInfo)
         {
-            var member = typeof(T).GetMember(memberName).FirstOrDefault();
-            return Get<TResult>(obj, member);
+            return (TResult) Get(obj, fieldInfo);
         }
         /// <summary>
-        /// 指定したメンバーから値を取得する
+        /// 指定したプロパティから値を取得する
         /// </summary>
-        /// <typeparam name="TResult">メンバーの型</typeparam>
-        /// <param name="obj">メンバーを持つオブジェクト</param>
-        /// <param name="member">MemberInfo</param>
-        /// <returns>メンバーの値</returns>
-        public TResult Get<TResult>(object obj, MemberInfo member)
+        public object Get(object obj, PropertyInfo propertyInfo)
         {
-            return (TResult) Get(obj, member);
-        }
-        /// <summary>
-        /// 指定したメンバーから値を取得する
-        /// </summary>
-        /// <param name="obj">メンバーを持つオブジェクト</param>
-        /// <param name="member">MemberInfo</param>
-        /// <returns>メンバーの値</returns>
-        public object Get(object obj, MemberInfo member)
-        {
-            var getter = this.reflectionCache.GetterCache.GetOrAdd(member, p =>
+            var getter = this.reflectionCache.GetterCache.GetOrAdd(propertyInfo, p =>
             {
                 var objExp = Expression.Parameter(typeof(object), nameof(obj));
-                var memberExp = Expression.MakeMemberAccess(Expression.Convert(objExp, member.DeclaringType), member);
-                return Expression.Lambda<Func<object, object>>(Expression.Convert(memberExp, typeof(object)), objExp).Compile();
+                var getterExp = Expression.Property(Expression.Convert(objExp, propertyInfo.DeclaringType), propertyInfo);
+                return Expression.Lambda<Func<object, object>>(Expression.Convert(getterExp, typeof(object)), objExp).Compile();
             });
             return getter(obj);
         }
         /// <summary>
-        /// 指定したメンバーに値を設定する
+        /// 指定したフィールドから値を取得する
         /// </summary>
-        /// <typeparam name="T">メンバーを持つオブジェクトの型</typeparam>
-        /// <param name="obj">メンバーを持つオブジェクト</param>
-        /// <param name="memberName">メンバー名</param>
-        /// <param name="value">設定値</param>
-        public void Set<T>(T obj, string memberName, object value)
+        public object Get(object obj, FieldInfo fieldInfo)
         {
-            var member = typeof(T).GetMember(memberName).FirstOrDefault();
-            Set(obj, member, value);
-        }
-        /// <summary>
-        /// 指定したメンバーに値を設定する
-        /// </summary>
-        /// <param name="obj">メンバーを持つオブジェクト</param>
-        /// <param name="member">MemberInfo</param>
-        /// <param name="value">設定値</param>
-        public void Set(object obj, MemberInfo member, object value)
-        {
-            var setter = this.reflectionCache.SetterCache.GetOrAdd(member, p =>
+            var getter = this.reflectionCache.GetterCache.GetOrAdd(fieldInfo, p =>
             {
                 var objExp = Expression.Parameter(typeof(object), nameof(obj));
-                var propExp = Expression.MakeMemberAccess(Expression.Convert(objExp, member.DeclaringType), member);
+                var getterExp = Expression.Field(Expression.Convert(objExp, fieldInfo.DeclaringType), fieldInfo);
+                return Expression.Lambda<Func<object, object>>(Expression.Convert(getterExp, typeof(object)), objExp).Compile();
+            });
+            return getter(obj);
+        }
+
+        private MemberInfo GetMemberInfo(Type type, string propertyOrFieldName)
+        {
+            var memberInfo = type.GetMember(propertyOrFieldName).FirstOrDefault();
+            switch (memberInfo.MemberType)
+            {
+                case MemberTypes.Field:
+                    return type.GetField(propertyOrFieldName);
+                case MemberTypes.Property:
+                    return type.GetProperty(propertyOrFieldName);
+            }
+            return memberInfo;
+        }
+
+        /// <summary>
+        /// 指定したプロパティまたはフィールドに値を設定する
+        /// </summary>
+        public void Set<T>(T obj, string propertyOrFieldName, object value)
+        {
+            var memberInfo = this.GetMemberInfo(typeof(T), propertyOrFieldName);
+            switch (memberInfo)
+            {
+                case PropertyInfo propertyInfo:
+                    Set(obj, propertyInfo, value);
+                    break;
+                case FieldInfo fieldInfo:
+                    Set(obj, fieldInfo, value);
+                    break;
+            }
+        }
+        /// <summary>
+        /// 指定したプロパティに値を設定する
+        /// </summary>
+        public void Set(object obj, PropertyInfo memberInfo, object value)
+        {
+            var setter = this.reflectionCache.SetterCache.GetOrAdd(memberInfo, p =>
+            {
+                var objExp = Expression.Parameter(typeof(object), nameof(obj));
+                var setterExp = Expression.Property(Expression.Convert(objExp, memberInfo.DeclaringType), memberInfo);
                 var valueExp = Expression.Parameter(typeof(object), nameof(value));
-                return Expression.Lambda<Action<object, object>>(Expression.Assign(propExp, Expression.Convert(valueExp, member.DeclaringType)), objExp, valueExp).Compile();
+                return Expression.Lambda<Action<object, object>>(Expression.Assign(setterExp, Expression.Convert(valueExp, memberInfo.PropertyType)), objExp, valueExp).Compile();
+            });
+            setter(obj, value);
+        }
+        /// <summary>
+        /// 指定したフィールドに値を設定する
+        /// </summary>
+        public void Set(object obj, FieldInfo memberInfo, object value)
+        {
+            var setter = this.reflectionCache.SetterCache.GetOrAdd(memberInfo, p =>
+            {
+                var objExp = Expression.Parameter(typeof(object), nameof(obj));
+                var setterExp = Expression.Field(Expression.Convert(objExp, memberInfo.DeclaringType), memberInfo);
+                var valueExp = Expression.Parameter(typeof(object), nameof(value));
+                return Expression.Lambda<Action<object, object>>(Expression.Assign(setterExp, Expression.Convert(valueExp, memberInfo.FieldType)), objExp, valueExp).Compile();
             });
             setter(obj, value);
         }
