@@ -10,15 +10,15 @@ namespace Cbn.Infrastructure.Common.DependencyInjection.Builder
             Type registerType,
             IEnumerable<Type> aliasTypes = null,
             LifetimeType lifetimeType = LifetimeType.Dependency,
-            IEnumerable<string> scopeTags = null) : base(aliasTypes)
+            IEnumerable<object> scopeTags = null) : base(aliasTypes)
         {
             this.RegisterType = registerType;
             this.LifetimeType = lifetimeType;
-            this.ScopeTags = scopeTags?.ToList() ?? new List<string>();
+            this.ScopeTags = scopeTags?.ToList() ?? new List<object>();
         }
         public Type RegisterType { get; }
         public LifetimeType LifetimeType { get; set; }
-        public IList<string> ScopeTags { get; set; }
+        public IList<object> ScopeTags { get; set; }
         public DIRegisterTypeObject InstancePerDependency()
         {
             this.LifetimeType = LifetimeType.Dependency;
@@ -34,7 +34,7 @@ namespace Cbn.Infrastructure.Common.DependencyInjection.Builder
             this.LifetimeType = LifetimeType.Scoped;
             return this;
         }
-        public DIRegisterTypeObject InstancePerMatchingLifetimeScope(params string[] tags)
+        public DIRegisterTypeObject InstancePerMatchingLifetimeScope(params object[] tags)
         {
             this.InstancePerLifetimeScope();
             this.ScopeTags = tags.ToList();
@@ -52,6 +52,6 @@ namespace Cbn.Infrastructure.Common.DependencyInjection.Builder
         public DIRegisterTypeObject(
             IEnumerable<Type> aliasTypes = null,
             LifetimeType lifetimeType = LifetimeType.Dependency,
-            IEnumerable<string> scopeTags = null) : base(typeof(TRegister), aliasTypes, lifetimeType, scopeTags) { }
+            IEnumerable<object> scopeTags = null) : base(typeof(TRegister), aliasTypes, lifetimeType, scopeTags) { }
     }
 }
