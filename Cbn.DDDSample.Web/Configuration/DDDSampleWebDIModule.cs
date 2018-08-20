@@ -1,5 +1,3 @@
-using System;
-using Autofac;
 using Cbn.DDDSample.Application.Configuration;
 using Cbn.DDDSample.Domain.Configuration;
 using Cbn.DDDSample.Web.Configuration.Interfaces;
@@ -7,7 +5,6 @@ using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
-using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.DDDSampleData.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Autofac.Extensions.DependencyInjection;
+﻿using System.IO;
 using Cbn.DDDSample.Web.Configuration;
-using Microsoft.AspNetCore;
+using Cbn.Infrastructure.Autofac.Extensions;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Cbn.DDDSample.Web
 {
@@ -18,7 +11,7 @@ namespace Cbn.DDDSample.Web
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .ConfigureServices(services => services.AddAutofac())
+                .ConfigureServices(services => services.AddDI())
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
