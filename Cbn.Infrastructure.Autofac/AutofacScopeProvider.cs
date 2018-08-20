@@ -16,7 +16,7 @@ namespace Cbn.Infrastructure.Autofac
         }
 
         /// <inheritdoc/>
-        public IScope BeginLifetimeScope(object tag, params TypeValuePair[] inheritances)
+        public IScope BeginLifetimeScope(string tag, params TypeValuePair[] inheritances)
         {
             return this.CurrentScope.BeginLifetimeScope(tag, inheritances);
         }

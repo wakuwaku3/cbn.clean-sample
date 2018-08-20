@@ -19,6 +19,6 @@ namespace Cbn.Infrastructure.Common.DependencyInjection.Interfaces
         /// <summary>
         /// 子スコープを作成する
         /// </summary>
-        IScope BeginLifetimeScope(object tag, params TypeValuePair[] inheritances);
+        IScope BeginLifetimeScope(string tag, params TypeValuePair[] inheritances);
     }
 }

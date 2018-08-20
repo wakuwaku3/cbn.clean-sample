@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;
-using Cbn.Infrastructure.Common.Configuration;
+using Cbn.Infrastructure.Autofac.Builder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,7 +22,6 @@ namespace Cbn.DDDSample.Web.Configuration
         private Assembly executeAssembly;
         private string rootPath;
         private IDDDSampleWebConfig config;
-        private IContainer container;
 
         public Startup(IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory, IConfiguration configuration)
         {
@@ -56,22 +49,18 @@ namespace Cbn.DDDSample.Web.Configuration
             return builder.Build();
         }
 
-        private void CreateContainer(IServiceCollection services)
-        {
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-            builder.RegisterModule(new DDDSampleAutofacModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
-            this.container = builder.Build();
-            this.config = this.container.Resolve<IDDDSampleWebConfig>();
-        }
-
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddControllersAsServices();
-            this.CreateContainer(services);
+
+            var builder = new AutofacBuilder();
+            builder.Populate(services);
+            builder.RegisterModule(new DDDSampleWebDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
+            var scope = builder.Build();
+            this.config = scope.Resolve<IDDDSampleWebConfig>();
             services.AddWebApiService(this.config);
 
-            return new AutofacServiceProvider(this.container);
+            return builder.CreateServiceProvider();
         }
 
         public void Configure(IApplicationBuilder app)

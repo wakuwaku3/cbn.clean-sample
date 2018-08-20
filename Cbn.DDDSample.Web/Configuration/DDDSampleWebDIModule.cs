@@ -6,6 +6,7 @@ using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
+using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.DDDSampleData.Configuration;
 using Microsoft.Extensions.Configuration;
@@ -13,14 +14,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Cbn.DDDSample.Web.Configuration
 {
-    public class DDDSampleAutofacModule : Module
+    public class DDDSampleWebDIModule : IDIModule
     {
         private System.Reflection.Assembly executeAssembly;
         private string rootPath;
-        private CommonAutofacModule commonAutofacModule;
+        private CommonDIModule commonAutofacModule;
         private IConfigurationRoot configurationRoot;
 
-        public DDDSampleAutofacModule(
+        public DDDSampleWebDIModule(
             System.Reflection.Assembly executeAssembly,
             string rootPath,
             IConfigurationRoot configurationRoot,
@@ -28,20 +29,19 @@ namespace Cbn.DDDSample.Web.Configuration
         {
             this.executeAssembly = executeAssembly;
             this.rootPath = rootPath;
-            this.commonAutofacModule = new CommonAutofacModule(executeAssembly, rootPath, loggerFactory);
+            this.commonAutofacModule = new CommonDIModule(executeAssembly, rootPath, loggerFactory);
             this.configurationRoot = configurationRoot;
         }
-        protected override void Load(ContainerBuilder builder)
+
+        public void DefineModule(IDIBuilder builder)
         {
             builder.RegisterModule(this.commonAutofacModule);
-            builder.RegisterModule(new DDDSampleDataAutofacModule());
-            builder.RegisterModule(new DDDSampleDomainAutofacModule());
-            builder.RegisterModule(new DDDSampleApplicationAutofacModule());
-            builder.RegisterInstance(this.configurationRoot).As<IConfigurationRoot>().SingleInstance();
-            builder.RegisterType<DDDSampleWebConfig>()
-                .As<IDDDSampleWebConfig>()
-                .As<IWebConfig>()
-                .SingleInstance();
+            builder.RegisterModule(new AutofacDIModule());
+            builder.RegisterModule(new DDDSampleDataDIModule());
+            builder.RegisterModule(new DDDSampleDomainDIModule());
+            builder.RegisterModule(new DDDSampleApplicationDIModule());
+            builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
+            builder.RegisterType<DDDSampleWebConfig>(x => x.As<IDDDSampleWebConfig>().As<IWebConfig>().SingleInstance());
         }
     }
 }

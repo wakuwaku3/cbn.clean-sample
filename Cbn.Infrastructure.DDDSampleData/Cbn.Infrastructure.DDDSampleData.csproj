@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
+    <ProjectReference Include="..\Cbn.Infrastructure.Common\Cbn.Infrastructure.Common.csproj" />
   </ItemGroup>
 
 </Project>
