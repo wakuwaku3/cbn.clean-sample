@@ -16,16 +16,15 @@ namespace Cbn.Infrastructure.AspNetCore.Extensions
             }
             if (config.UseAuthentication)
             {
-                services.AddAuthentication(options =>
-                    {
-                        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                    })
+                services
+                    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
                         options.Audience = config.JwtSecret;
                         options.RequireHttpsMetadata = config.IsUseSecure;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
+                            ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
                             ValidateIssuer = true,
                             ValidIssuer = config.JwtSecret,

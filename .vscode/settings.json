@@ -23,5 +23,13 @@
   "prettier.singleQuote": true,
   "prettier.disableLanguages": ["jchannon.csharpextensions"],
   "csproj.excludeRegex": "*.cs",
-  "cSpell.words": ["Autofac", "CQRS", "IDDD", "msgs", "classname", "nuget"]
+"cSpell.words": [
+    "Autofac",
+    "CQRS",
+    "Hmac",
+    "IDDD",
+    "classname",
+    "msgs",
+    "nuget"
+]
 }

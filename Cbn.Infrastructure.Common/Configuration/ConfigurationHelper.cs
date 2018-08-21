@@ -1,5 +1,6 @@
 using System.Reflection;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
+using Cbn.Infrastructure.Common.Foundation;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Microsoft.Extensions.Configuration;
 
@@ -10,15 +11,6 @@ namespace Cbn.Infrastructure.Common.Configuration
     /// </summary>
     public class ConfigurationHelper : IConfigurationHelper
     {
-        private readonly IMemberHelper memberHelper;
-
-        /// <summary>
-        /// ConfigurationHelper
-        /// </summary>
-        public ConfigurationHelper(IMemberHelper memberHelper)
-        {
-            this.memberHelper = memberHelper;
-        }
         /// <summary>
         /// Map
         /// </summary>
@@ -29,7 +21,7 @@ namespace Cbn.Infrastructure.Common.Configuration
                 var value = configurationRoot.GetSection(prop.Name)?.Get(prop.PropertyType);
                 if (value != null)
                 {
-                    this.memberHelper.Set(config, prop, value);
+                    prop.CreateSetExpression(config, value) (config, value);
                 }
             }
         }

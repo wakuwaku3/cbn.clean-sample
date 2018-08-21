@@ -1,11 +1,15 @@
-using Cbn.DDDSample.Application.Configuration;
-using Cbn.DDDSample.Domain.Configuration;
+using Cbn.DDDSample.Application;
+using Cbn.DDDSample.Common;
+using Cbn.DDDSample.Domain;
+using Cbn.DDDSample.Domain.Account;
 using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
-using Cbn.Infrastructure.DDDSampleData.Configuration;
+using Cbn.Infrastructure.DDDSampleData;
+using Cbn.Infrastructure.JsonWebToken;
+using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -34,11 +38,18 @@ namespace Cbn.DDDSample.Web.Configuration
         {
             builder.RegisterModule(this.commonAutofacModule);
             builder.RegisterModule(new AutofacDIModule());
+            builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule());
-            builder.RegisterModule(new DDDSampleDomainDIModule());
-            builder.RegisterModule(new DDDSampleApplicationDIModule());
+            builder.RegisterModule(new DDDSampleCommonDIModule());
+            builder.RegisterModule(new DomainHomeDIModule());
+            builder.RegisterModule(new DomainAccountDIModule());
+            builder.RegisterModule(new ApplicationDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
-            builder.RegisterType<DDDSampleWebConfig>(x => x.As<IDDDSampleWebConfig>().As<IWebConfig>().SingleInstance());
+            builder.RegisterType<DDDSampleWebConfig>(x =>
+                x.As<IDDDSampleWebConfig>()
+                .As<IWebConfig>()
+                .As<IJwtConfig>()
+                .SingleInstance());
         }
     }
 }

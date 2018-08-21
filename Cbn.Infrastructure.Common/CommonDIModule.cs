@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Cbn.Infrastructure.Common.Configuration;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
+using Cbn.Infrastructure.Common.Cryptography;
+using Cbn.Infrastructure.Common.Cryptography.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
@@ -43,6 +45,7 @@ namespace Cbn.Infrastructure.Autofac.Configuration
             builder.RegisterType<TypeHelper>(x => x.As<ITypeHelper>().SingleInstance());
             builder.RegisterType<IdentityContext>(x => x.As<IIdentityContext>().InstancePerLifetimeScope());
             builder.RegisterInstance(new PathResolver(this.rootPath), x => x.As<IPathResolver>());
+            builder.RegisterType<MD5HashComputer>(x => x.As<IHashComputer>().SingleInstance());
 
             // 登録されてない型もコンテナで作成する
             builder.CanResolveNotAlreadyRegisteredSource = true;

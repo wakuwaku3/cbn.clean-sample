@@ -5,6 +5,7 @@ using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;
 using Cbn.Infrastructure.Autofac.Builder;
+using Cbn.Infrastructure.Common.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -51,20 +52,20 @@ namespace Cbn.DDDSample.Web.Configuration
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            this.config = new DDDSampleWebConfig(this.configurationRoot, new ConfigurationHelper());
+            services.AddWebApiService(this.config);
             services.AddMvc().AddControllersAsServices();
 
             var builder = new AutofacBuilder();
             builder.Populate(services);
             builder.RegisterModule(new DDDSampleWebDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
             var scope = builder.Build();
-            this.config = scope.Resolve<IDDDSampleWebConfig>();
-            services.AddWebApiService(this.config);
-
             return builder.CreateServiceProvider();
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
             app.UseWebApiServiceMiddlewares(this.config);
         }
     }

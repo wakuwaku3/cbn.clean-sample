@@ -50,9 +50,7 @@ namespace Cbn.Infrastructure.Common.Foundation
         {
             var getter = this.reflectionCache.GetterCache.GetOrAdd(propertyInfo, p =>
             {
-                var objExp = Expression.Parameter(typeof(object), nameof(obj));
-                var getterExp = Expression.Property(Expression.Convert(objExp, propertyInfo.DeclaringType), propertyInfo);
-                return Expression.Lambda<Func<object, object>>(Expression.Convert(getterExp, typeof(object)), objExp).Compile();
+                return propertyInfo.CreateGetExpression(obj);
             });
             return getter(obj);
         }
@@ -63,9 +61,7 @@ namespace Cbn.Infrastructure.Common.Foundation
         {
             var getter = this.reflectionCache.GetterCache.GetOrAdd(fieldInfo, p =>
             {
-                var objExp = Expression.Parameter(typeof(object), nameof(obj));
-                var getterExp = Expression.Field(Expression.Convert(objExp, fieldInfo.DeclaringType), fieldInfo);
-                return Expression.Lambda<Func<object, object>>(Expression.Convert(getterExp, typeof(object)), objExp).Compile();
+                return fieldInfo.CreateGetExpression(obj);
             });
             return getter(obj);
         }
@@ -102,30 +98,54 @@ namespace Cbn.Infrastructure.Common.Foundation
         /// <summary>
         /// 指定したプロパティに値を設定する
         /// </summary>
-        public void Set(object obj, PropertyInfo memberInfo, object value)
+        public void Set(object obj, PropertyInfo pInfo, object value)
         {
-            var setter = this.reflectionCache.SetterCache.GetOrAdd(memberInfo, p =>
+            var setter = this.reflectionCache.SetterCache.GetOrAdd(pInfo, p =>
             {
-                var objExp = Expression.Parameter(typeof(object), nameof(obj));
-                var setterExp = Expression.Property(Expression.Convert(objExp, memberInfo.DeclaringType), memberInfo);
-                var valueExp = Expression.Parameter(typeof(object), nameof(value));
-                return Expression.Lambda<Action<object, object>>(Expression.Assign(setterExp, Expression.Convert(valueExp, memberInfo.PropertyType)), objExp, valueExp).Compile();
+                return pInfo.CreateSetExpression(obj, value);
             });
             setter(obj, value);
         }
         /// <summary>
         /// 指定したフィールドに値を設定する
         /// </summary>
-        public void Set(object obj, FieldInfo memberInfo, object value)
+        public void Set(object obj, FieldInfo fieldInfo, object value)
         {
-            var setter = this.reflectionCache.SetterCache.GetOrAdd(memberInfo, p =>
+            var setter = this.reflectionCache.SetterCache.GetOrAdd(fieldInfo, p =>
             {
-                var objExp = Expression.Parameter(typeof(object), nameof(obj));
-                var setterExp = Expression.Field(Expression.Convert(objExp, memberInfo.DeclaringType), memberInfo);
-                var valueExp = Expression.Parameter(typeof(object), nameof(value));
-                return Expression.Lambda<Action<object, object>>(Expression.Assign(setterExp, Expression.Convert(valueExp, memberInfo.FieldType)), objExp, valueExp).Compile();
+                return fieldInfo.CreateSetExpression(obj, value);
             });
             setter(obj, value);
+        }
+    }
+
+    internal static class MemberExtensions
+    {
+        public static Func<object, object> CreateGetExpression(this PropertyInfo propertyInfo, object obj)
+        {
+            var objExp = Expression.Parameter(typeof(object), nameof(obj));
+            var getterExp = Expression.Property(Expression.Convert(objExp, propertyInfo.DeclaringType), propertyInfo);
+            return Expression.Lambda<Func<object, object>>(Expression.Convert(getterExp, typeof(object)), objExp).Compile();
+        }
+        public static Func<object, object> CreateGetExpression(this FieldInfo fieldInfo, object obj)
+        {
+            var objExp = Expression.Parameter(typeof(object), nameof(obj));
+            var getterExp = Expression.Field(Expression.Convert(objExp, fieldInfo.DeclaringType), fieldInfo);
+            return Expression.Lambda<Func<object, object>>(Expression.Convert(getterExp, typeof(object)), objExp).Compile();
+        }
+        public static Action<object, object> CreateSetExpression(this PropertyInfo pInfo, object obj, object value)
+        {
+            var objExp = Expression.Parameter(typeof(object), nameof(obj));
+            var setterExp = Expression.Property(Expression.Convert(objExp, pInfo.DeclaringType), pInfo);
+            var valueExp = Expression.Parameter(typeof(object), nameof(value));
+            return Expression.Lambda<Action<object, object>>(Expression.Assign(setterExp, Expression.Convert(valueExp, pInfo.PropertyType)), objExp, valueExp).Compile();
+        }
+        public static Action<object, object> CreateSetExpression(this FieldInfo fInfo, object obj, object value)
+        {
+            var objExp = Expression.Parameter(typeof(object), nameof(obj));
+            var setterExp = Expression.Field(Expression.Convert(objExp, fInfo.DeclaringType), fInfo);
+            var valueExp = Expression.Parameter(typeof(object), nameof(value));
+            return Expression.Lambda<Action<object, object>>(Expression.Assign(setterExp, Expression.Convert(valueExp, fInfo.FieldType)), objExp, valueExp).Compile();
         }
     }
 }

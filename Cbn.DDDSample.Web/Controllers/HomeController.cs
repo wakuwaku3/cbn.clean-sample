@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Cbn.DDDSample.Application;
 using Cbn.DDDSample.Application.Services;
+using Cbn.DDDSample.Application.Services.Interfaces;
 using Cbn.DDDSample.Web.Configuration;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Microsoft.AspNetCore.Mvc;

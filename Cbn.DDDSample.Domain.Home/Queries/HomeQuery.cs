@@ -1,7 +1,7 @@
 using System;
 using Cbn.Infrastructure.DDDSampleData.Repositories;
 
-namespace Cbn.DDDSample.Domain.Home
+namespace Cbn.DDDSample.Domain.Home.Queries
 {
     public interface IQuery1
     {

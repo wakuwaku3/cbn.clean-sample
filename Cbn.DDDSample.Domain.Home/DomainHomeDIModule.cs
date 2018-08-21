@@ -1,9 +1,9 @@
-using Cbn.DDDSample.Domain.Home;
+using Cbn.DDDSample.Domain.Home.Queries;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 
-namespace Cbn.DDDSample.Domain.Configuration
+namespace Cbn.DDDSample.Domain
 {
-    public class DDDSampleDomainDIModule : IDIModule
+    public class DomainHomeDIModule : IDIModule
     {
         public void DefineModule(IDIBuilder builder)
         {

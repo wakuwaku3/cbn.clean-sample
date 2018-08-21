@@ -6,6 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cbn.Infrastructure.Common\Cbn.Infrastructure.Common.csproj" />
     <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
+    <ProjectReference Include="..\Cbn.Infrastructure.JsonWebToken\Cbn.Infrastructure.JsonWebToken.csproj" />
   </ItemGroup>
 
   <ItemGroup>

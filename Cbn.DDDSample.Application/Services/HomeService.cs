@@ -1,14 +1,12 @@
 using System;
+using Cbn.DDDSample.Application.Services.Interfaces;
 using Cbn.DDDSample.Domain.Home;
+using Cbn.DDDSample.Domain.Home.Queries;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 
 namespace Cbn.DDDSample.Application.Services
 {
-    public interface IHomeService
-    {
-        string Execute();
-    }
-    internal class HomeService : IHomeService
+    public class HomeService : IHomeService
     {
         private IScopeProvider provider;
 
