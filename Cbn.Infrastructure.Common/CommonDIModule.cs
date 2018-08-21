@@ -1,15 +1,10 @@
-using System.Collections.Generic;
 using Cbn.Infrastructure.Common.Configuration;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Cryptography;
 using Cbn.Infrastructure.Common.Cryptography.Interfaces;
-using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
-using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.Common.Foundation;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
-using Cbn.Infrastructure.Common.Identities;
-using Cbn.Infrastructure.Common.Identities.Interfaces;
 using Cbn.Infrastructure.Common.IO;
 using Cbn.Infrastructure.Common.IO.Interfaces;
 using Cbn.Infrastructure.Common.Logging.Extensions;
@@ -43,7 +38,6 @@ namespace Cbn.Infrastructure.Autofac.Configuration
             builder.RegisterType<ReflectionCache>(x => x.As<IReflectionCache>().SingleInstance());
             builder.RegisterType<SystemClock>(x => x.As<ISystemClock>().SingleInstance());
             builder.RegisterType<TypeHelper>(x => x.As<ITypeHelper>().SingleInstance());
-            builder.RegisterType<IdentityContext>(x => x.As<IIdentityContext>().InstancePerLifetimeScope());
             builder.RegisterInstance(new PathResolver(this.rootPath), x => x.As<IPathResolver>());
             builder.RegisterType<MD5HashComputer>(x => x.As<IHashComputer>().SingleInstance());
 

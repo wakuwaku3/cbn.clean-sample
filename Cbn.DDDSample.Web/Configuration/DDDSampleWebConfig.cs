@@ -26,6 +26,9 @@ namespace Cbn.DDDSample.Web.Configuration
         public bool IsUseSecure { get; set; }
         public string CorsOrigins { get; set; }
         public int JwtExpiresDate { get; set; }
+        public string JwtAudience { get; set; }
+        public string JwtIssuer { get; set; }
+
         public IEnumerable<string> GetCorsOrigins()
         {
             return this.CorsOrigins?.Split(",") ?? Enumerable.Empty<string>();

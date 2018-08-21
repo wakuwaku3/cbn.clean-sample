@@ -25,8 +25,8 @@ namespace Cbn.Infrastructure.JsonWebToken
             var expires = this.systemClock.Now.AddDays(this.jwtConfig.JwtExpiresDate);
 
             var token = new JwtSecurityToken(
-                issuer: this.jwtConfig.JwtSecret,
-                audience: this.jwtConfig.JwtSecret,
+                issuer: this.jwtConfig.JwtIssuer,
+                audience: this.jwtConfig.JwtAudience,
                 claims: claimInfo.GetClaims(),
                 expires: expires,
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.jwtConfig.JwtSecret)), SecurityAlgorithms.HmacSha256)

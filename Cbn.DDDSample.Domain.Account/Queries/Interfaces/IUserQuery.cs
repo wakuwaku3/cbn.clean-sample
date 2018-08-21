@@ -6,7 +6,6 @@ namespace Cbn.DDDSample.Domain.Account.Queries.Interfaces
 {
     public interface IUserQuery
     {
-        Task<UserClaim> GetCurrentUserClaimAsync();
         Task<UserClaim> GetCurrentUserClaimFromDataAsync();
         Task<UserClaim> GetSignInUserAsync(SignIn args);
     }

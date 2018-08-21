@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Microsoft.AspNetCore.Builder;
 
@@ -13,8 +10,8 @@ namespace Cbn.Infrastructure.AspNetCore.Middlewares.Extensions
     public static class MiddlewareExtensions
     {
         private static IApplicationBuilder UseRequestLogger(this IApplicationBuilder builder) => builder.UseMiddleware<RequestLoggerMiddleware>();
-        private static IApplicationBuilder UseIdentityContext(this IApplicationBuilder builder) => builder.UseMiddleware<IdentityContextMiddleware>();
-        public static IApplicationBuilder UseWebApiServiceMiddlewares(this IApplicationBuilder builder, IWebConfig config)
+        private static IApplicationBuilder UseIdentityContext<TClaim>(this IApplicationBuilder builder) => builder.UseMiddleware<ClaimContextMiddleware<TClaim>>();
+        public static IApplicationBuilder UseWebApiServiceMiddlewares<TClaim>(this IApplicationBuilder builder, IWebConfig config)
         {
             builder.UseMiddleware<RequestLoggerMiddleware>();
             if (config.IsEnableCors)
@@ -31,7 +28,7 @@ namespace Cbn.Infrastructure.AspNetCore.Middlewares.Extensions
             if (config.UseAuthentication)
             {
                 builder.UseAuthentication();
-                builder.UseIdentityContext();
+                builder.UseIdentityContext<TClaim>();
             }
 
             builder.UseMvc(config.CreateMvcConfigureRoutes);

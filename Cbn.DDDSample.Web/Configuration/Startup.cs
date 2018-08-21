@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Cbn.DDDSample.Domain.Account.Models;
 using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;
@@ -66,7 +67,7 @@ namespace Cbn.DDDSample.Web.Configuration
         public void Configure(IApplicationBuilder app)
         {
             app.UseDeveloperExceptionPage();
-            app.UseWebApiServiceMiddlewares(this.config);
+            app.UseWebApiServiceMiddlewares<UserClaim>(this.config);
         }
     }
 }

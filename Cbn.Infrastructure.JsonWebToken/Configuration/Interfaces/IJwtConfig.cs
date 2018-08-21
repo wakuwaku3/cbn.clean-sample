@@ -4,5 +4,7 @@ namespace Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces
     {
         string JwtSecret { get; }
         int JwtExpiresDate { get; }
+        string JwtAudience { get; }
+        string JwtIssuer { get; }
     }
 }

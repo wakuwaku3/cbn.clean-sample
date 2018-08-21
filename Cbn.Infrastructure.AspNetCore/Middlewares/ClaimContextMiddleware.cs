@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Bases;
-using Cbn.Infrastructure.Common.Identities.Interfaces;
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -10,9 +10,9 @@ namespace Cbn.Infrastructure.AspNetCore.Middlewares
     /// <summary>
     /// IdentityContextミドルウェア
     /// </summary>
-    public class IdentityContextMiddleware : MiddlewareBase
+    public class ClaimContextMiddleware<TClaim> : MiddlewareBase
     {
-        private IIdentityContext identityContext;
+        private IClaimContext<TClaim> claimContext;
 
         /// <summary>
         /// コンストラクタ
@@ -20,11 +20,11 @@ namespace Cbn.Infrastructure.AspNetCore.Middlewares
         /// <param name="loggerFactory"></param>
         /// <param name="requestContext"></param>
         /// <param name="authenticationConfig"></param>
-        public IdentityContextMiddleware(
+        public ClaimContextMiddleware(
             ILoggerFactory loggerFactory,
-            IIdentityContext identityContext) : base(loggerFactory)
+            IClaimContext<TClaim> claimContext) : base(loggerFactory)
         {
-            this.identityContext = identityContext;
+            this.claimContext = claimContext;
         }
 
         /// <summary>
@@ -32,11 +32,7 @@ namespace Cbn.Infrastructure.AspNetCore.Middlewares
         /// </summary>
         public override async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var id = context.User.GetId();
-            if (!string.IsNullOrEmpty(id))
-            {
-                this.identityContext.Id = id;
-            }
+            this.claimContext.SetClaims(context.User);
             await next.Invoke(context);
         }
     }

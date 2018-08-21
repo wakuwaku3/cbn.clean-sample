@@ -1,6 +1,4 @@
-using System.Linq;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
-using Cbn.Infrastructure.Common.Identities.Interfaces;
 using Cbn.Infrastructure.Common.ValueObjects;
 
 namespace Cbn.Infrastructure.Autofac

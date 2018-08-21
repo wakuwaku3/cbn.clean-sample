@@ -20,14 +20,17 @@ namespace Cbn.Infrastructure.AspNetCore.Extensions
                     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
-                        options.Audience = config.JwtSecret;
+                        options.Audience = config.JwtAudience;
+                        options.ClaimsIssuer = config.JwtIssuer;
                         options.RequireHttpsMetadata = config.IsUseSecure;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
                             ValidateIssuer = true,
-                            ValidIssuer = config.JwtSecret,
+                            ValidateAudience = true,
+                            ValidIssuer = config.JwtIssuer,
+                            ValidAudience = config.JwtAudience,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.JwtSecret)),
                         };
                     });
