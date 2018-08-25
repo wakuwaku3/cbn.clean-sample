@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using System.Data;
 
 namespace Cbn.Infrastructure.Common.Data.Interfaces
 {
     public interface IDbQuery
     {
-        object[] GetParameters();
+        IEnumerable<IDataParameter> GetParameters();
         IDbQuery Append(string sql, params IDataParameter[] parameters);
         IDbQuery AddParameters(params IDataParameter[] parameters);
         IDbQuery AddParameters(params(string name, object value) [] parameters);

@@ -12,13 +12,15 @@ namespace Cbn.DDDSample.Cli.Configuration
 {
     public class Startup
     {
+        private string[] args;
         private ILoggerFactory loggerFactory;
         private IConfigurationRoot configurationRoot;
         private Assembly executeAssembly;
         private string rootPath;
 
-        public Startup()
+        public Startup(string[] args)
         {
+            this.args = args;
             this.loggerFactory = new LoggerFactory();
             this.loggerFactory.AddConsole();
             this.loggerFactory.AddDebug();
@@ -27,7 +29,10 @@ namespace Cbn.DDDSample.Cli.Configuration
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(rootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
-                .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional : true);
+                .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional : true)
+                .AddUserSecrets(this.executeAssembly)
+                .AddEnvironmentVariables()
+                .AddCommandLine(this.args);
 
             this.configurationRoot = configurationBuilder.Build();
         }
@@ -35,7 +40,7 @@ namespace Cbn.DDDSample.Cli.Configuration
         /// <summary>
         /// 実行
         /// </summary>
-        public int Execute(string[] args)
+        public int Execute()
         {
             var builder = new AutofacBuilder();
             builder.RegisterModule(new CliDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));

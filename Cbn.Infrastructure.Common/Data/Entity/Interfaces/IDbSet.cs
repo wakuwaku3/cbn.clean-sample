@@ -11,6 +11,7 @@ namespace Cbn.Infrastructure.Common.Data.Entity.Interfaces
     }
     public interface IDbSet<TEntity> : IDbSet where TEntity : class
     {
+        IQueryable<TEntity> Query { get; }
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);
         TEntity Find(int id);

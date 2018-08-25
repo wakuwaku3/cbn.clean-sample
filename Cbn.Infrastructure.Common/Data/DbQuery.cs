@@ -149,9 +149,9 @@ namespace Cbn.Infrastructure.Common.Data
         /// 設定されているパラメータを取得する
         /// </summary>
         /// <returns>パラメータ</returns>
-        public object[] GetParameters()
+        public IEnumerable<IDataParameter> GetParameters()
         {
-            return this.Parameters.ToArray();
+            return this.Parameters;
         }
         /// <summary>
         /// Sqlを置換する

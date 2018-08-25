@@ -1,13 +1,18 @@
 using System.Reflection;
 using Cbn.DDDSample.Application;
 using Cbn.DDDSample.Common;
+using Cbn.DDDSample.Domain;
+using Cbn.DDDSample.Domain.Account;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
 using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
+using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
+using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 using Cbn.Infrastructure.DDDSampleData;
 using Cbn.Infrastructure.JsonWebToken;
 using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
+using Cbn.Infrastructure.Npgsql.Entity.Migration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -37,11 +42,15 @@ namespace Cbn.DDDSample.Cli.Configuration
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule());
             builder.RegisterModule(new DDDSampleCommonDIModule());
+            builder.RegisterModule(new DomainHomeDIModule());
+            builder.RegisterModule(new DomainAccountDIModule(LifetimeType.Singleton));
             builder.RegisterModule(new ApplicationDIModule());
+            builder.RegisterModule(new MigrationDIModule(this.configurationRoot.GetConnectionString("MigrationConnectionString")));
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
             builder.RegisterType<CliConfig>(x =>
                 x.As<IDbConfig>()
                 .As<IJwtConfig>()
+                .As<IMigrationConfig>()
                 .SingleInstance());
         }
     }

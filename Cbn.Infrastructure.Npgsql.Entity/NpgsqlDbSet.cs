@@ -17,6 +17,8 @@ namespace Cbn.Infrastructure.Npgsql.Entity
             this.dbSet = dbSet;
         }
 
+        public IQueryable<TEntity> Query => this.dbSet;
+
         public void Add(TEntity entity)
         {
             this.dbSet.Add(entity);

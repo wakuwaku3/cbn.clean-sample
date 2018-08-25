@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cbn.DDDSample.Cli.WorkerServices;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
@@ -11,15 +12,18 @@ namespace Cbn.DDDSample.Cli.Configuration
         private CancellationTokenSource cancellationTokenSource;
         private CommandLineApplication application;
         private ILogger logger;
+        private MigrationWorkerService migrationWorkerService;
 
         public CliApplication(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
-            ILogger logger)
+            ILogger logger,
+            MigrationWorkerService migrationWorkerService)
         {
             this.application = application;
             this.cancellationTokenSource = cancellationTokenSource;
             this.logger = logger;
+            this.migrationWorkerService = migrationWorkerService;
         }
 
         public int Execute(string[] args)
@@ -37,7 +41,7 @@ namespace Cbn.DDDSample.Cli.Configuration
                 {
                     return await this.ExecuteOnErrorHandleAsync("migration", async() =>
                     {
-                        return await Task.FromResult(0);
+                        return await this.migrationWorkerService.ExecuteAsync();
                     });
                 });
             });

@@ -23,5 +23,10 @@ namespace Cbn.DDDSample.Domain.Account.Shared
             var jwtClaim = new JwtClaimInfo(claimsPrincipal);
             this.userClaim = this.mapper.Map<UserClaim>(jwtClaim);
         }
+
+        public void SetClaims(UserClaim claim)
+        {
+            this.userClaim = claim;
+        }
     }
 }

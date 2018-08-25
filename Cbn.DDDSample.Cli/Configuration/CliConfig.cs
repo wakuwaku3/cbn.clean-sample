@@ -1,11 +1,12 @@
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
+using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace Cbn.DDDSample.Cli.Configuration
 {
-    public class CliConfig : IDbConfig, IJwtConfig
+    public class CliConfig : IDbConfig, IJwtConfig, IMigrationConfig
     {
         private IConfigurationRoot configurationRoot;
         private IConfigurationHelper configurationHelper;
@@ -22,5 +23,13 @@ namespace Cbn.DDDSample.Cli.Configuration
         public int JwtExpiresDate { get; set; }
         public string JwtAudience { get; set; }
         public string JwtIssuer { get; set; }
+        public string Database { get; set; }
+
+        public string AdminConnectionString => this.GetConnectionString("AdminConnectionString");
+
+        public string GetConnectionString(string name)
+        {
+            return this.configurationRoot.GetConnectionString(name);
+        }
     }
 }

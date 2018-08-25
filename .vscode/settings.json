@@ -29,9 +29,11 @@
     "CQRS",
     "Hmac",
     "IDDD",
+    "Includable",
     "Npgsql",
     "classname",
     "msgs",
-    "nuget"
+    "nuget",
+    "postgres"
 ]
 }

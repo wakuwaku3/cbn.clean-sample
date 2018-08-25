@@ -42,7 +42,8 @@ namespace Cbn.DDDSample.Web.Configuration
             var builder = new ConfigurationBuilder()
                 .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
-                .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional : true);
+                .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional : true)
+                .AddEnvironmentVariables();
             if (hostingEnvironment.IsDevelopment())
             {
                 builder.AddUserSecrets(this.executeAssembly);

@@ -8,7 +8,7 @@ namespace Cbn.DDDSample.Cli
     {
         static int Main(string[] args)
         {
-            return new Startup().Execute(args);
+            return new Startup(args).Execute();
         }
     }
 }

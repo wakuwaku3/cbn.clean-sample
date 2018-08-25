@@ -8,7 +8,6 @@
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-docker": "0.0.12",
     "gulp-dotnet-cli": "^0.8.0",
     "gulp-zip": "^4.1.0",
     "path": "^0.12.7",
@@ -19,7 +18,8 @@
     "install": "gulp restore",
     "build": "gulp build",
     "publish": "gulp publish",
-    "test": "gulp test"
+    "test": "gulp test",
+    "db": "gulp db"
   },
   "author": "",
   "license": "ISC"
