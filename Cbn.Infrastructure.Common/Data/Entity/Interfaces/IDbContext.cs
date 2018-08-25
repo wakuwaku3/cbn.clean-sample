@@ -12,7 +12,7 @@ namespace Cbn.Infrastructure.Common.Data.Entity.Interfaces
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;
-        IDbTransaction BeginTransaction();
+        Task<IDbTransaction> BeginTransactionAsync();
 
         IDbQuery CreateDbQuery(string sql);
         IDbQuery CreateDbQueryById(string sqlId = null);

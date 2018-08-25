@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cbn.DDDSample.Web.Configuration.Interfaces;
+using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
+using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 
 namespace Cbn.DDDSample.Web.Configuration
 {
-    public class DDDSampleWebConfig : IDDDSampleWebConfig
+    public class DDDSampleWebConfig : IWebConfig, IDbConfig
     {
         private IConfigurationRoot configurationRoot;
         private IConfigurationHelper configurationHelper;
@@ -28,6 +29,7 @@ namespace Cbn.DDDSample.Web.Configuration
         public int JwtExpiresDate { get; set; }
         public string JwtAudience { get; set; }
         public string JwtIssuer { get; set; }
+        public string SqlPoolPath { get; set; }
 
         public IEnumerable<string> GetCorsOrigins()
         {
@@ -37,6 +39,11 @@ namespace Cbn.DDDSample.Web.Configuration
         public void CreateMvcConfigureRoutes(IRouteBuilder routes)
         {
             routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+        }
+
+        public string GetConnectionString(string name)
+        {
+            return this.configurationRoot.GetConnectionString(name);
         }
     }
 }

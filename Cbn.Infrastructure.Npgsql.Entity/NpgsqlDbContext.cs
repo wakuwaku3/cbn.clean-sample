@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading;
@@ -14,20 +15,18 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Cbn.Infrastructure.Npgsql.Entity
 {
-    public class NpgsqlDbContext : DbContext, IDbContext
+    public abstract class NpgsqlDbContext : DbContext, IDbContext
     {
         private IDbQueryCache queryPool;
 
-        public NpgsqlDbContext(DbContextOptions options) : base(options)
-        {
-            this.Database.AutoTransactionsEnabled = false;
-        }
+        public NpgsqlDbContext(DbContextOptions options) : base(options) { }
         public NpgsqlDbContext(DbContextOptions<NpgsqlDbContext> options) : this(options as DbContextOptions) { }
         public NpgsqlDbContext(DbContextOptions options, IDbQueryCache queryPool) : this(options)
         {
             this.queryPool = queryPool;
         }
         public NpgsqlDbContext(DbContextOptions<NpgsqlDbContext> options, IDbQueryCache queryPool) : this(options as DbContextOptions, queryPool) { }
+
         public override int SaveChanges()
         {
             this.PreSaveChanges();
@@ -55,9 +54,9 @@ namespace Cbn.Infrastructure.Npgsql.Entity
             return new NpgsqlDbSet<TEntity>(base.Set<TEntity>());
         }
 
-        public IDbTransaction BeginTransaction()
+        public async Task<IDbTransaction> BeginTransactionAsync()
         {
-            return this.Database.BeginTransaction().GetDbTransaction();
+            return (await this.Database.BeginTransactionAsync())?.GetDbTransaction();
         }
 
         public async Task<int> ExecuteAsync(IDbQuery query)

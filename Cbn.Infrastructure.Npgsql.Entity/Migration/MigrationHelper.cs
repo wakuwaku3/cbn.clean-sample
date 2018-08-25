@@ -70,7 +70,7 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
                 this.logger.LogInformation("Skip create table");
                 return;
             }
-            var transaction = this.DbContext.BeginTransaction();
+            var transaction = await this.DbContext.BeginTransactionAsync();
             try
             {
                 await this.CreateMigrationHistoryTableAsync();
@@ -103,7 +103,7 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
             var history = new MigrationHistory();
             history.MigrationHistoryId = id;
             history.CreatedAt = this.systemClock.Now;
-            var transaction = this.DbContext.BeginTransaction();
+            var transaction = await this.DbContext.BeginTransactionAsync();
             try
             {
                 await this.DbContext.ExecuteAsync(query);

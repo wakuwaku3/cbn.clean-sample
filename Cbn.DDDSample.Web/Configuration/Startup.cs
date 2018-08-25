@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using Cbn.DDDSample.Domain.Account.Models;
-using Cbn.DDDSample.Web.Configuration.Interfaces;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;
 using Cbn.Infrastructure.Autofac.Builder;
@@ -23,7 +22,7 @@ namespace Cbn.DDDSample.Web.Configuration
         private IConfigurationRoot configurationRoot;
         private Assembly executeAssembly;
         private string rootPath;
-        private IDDDSampleWebConfig config;
+        private DDDSampleWebConfig config;
 
         public Startup(IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory, IConfiguration configuration)
         {

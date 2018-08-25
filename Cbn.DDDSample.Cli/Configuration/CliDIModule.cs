@@ -40,7 +40,7 @@ namespace Cbn.DDDSample.Cli.Configuration
             builder.RegisterModule(this.commonAutofacModule);
             builder.RegisterModule(new AutofacDIModule());
             builder.RegisterModule(new JwtDIModule());
-            builder.RegisterModule(new DDDSampleDataDIModule());
+            builder.RegisterModule(new DDDSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
             builder.RegisterModule(new DDDSampleCommonDIModule());
             builder.RegisterModule(new DomainHomeDIModule());
             builder.RegisterModule(new DomainAccountDIModule(LifetimeType.Singleton));
