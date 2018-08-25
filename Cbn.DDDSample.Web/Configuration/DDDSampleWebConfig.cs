@@ -10,7 +10,7 @@ namespace Cbn.DDDSample.Web.Configuration
 {
     public class DDDSampleWebConfig : IDDDSampleWebConfig
     {
-        private readonly IConfigurationRoot configurationRoot;
+        private IConfigurationRoot configurationRoot;
         private IConfigurationHelper configurationHelper;
 
         public DDDSampleWebConfig(IConfigurationRoot configurationRoot, IConfigurationHelper configurationHelper)

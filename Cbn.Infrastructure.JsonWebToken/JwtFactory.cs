@@ -12,13 +12,16 @@ namespace Cbn.Infrastructure.JsonWebToken
     {
         private ISystemClock systemClock;
         private IJwtConfig jwtConfig;
+        private JwtSecurityTokenHandler securityTokenHandler;
 
         public JwtFactory(
             ISystemClock systemClock,
-            IJwtConfig jwtConfig)
+            IJwtConfig jwtConfig,
+            JwtSecurityTokenHandler securityTokenHandler)
         {
             this.systemClock = systemClock;
             this.jwtConfig = jwtConfig;
+            this.securityTokenHandler = securityTokenHandler;
         }
         public string Create(JwtClaimInfo claimInfo)
         {
@@ -31,7 +34,7 @@ namespace Cbn.Infrastructure.JsonWebToken
                 expires: expires,
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.jwtConfig.JwtSecret)), SecurityAlgorithms.HmacSha256)
             );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return this.securityTokenHandler.WriteToken(token);
         }
     }
 }

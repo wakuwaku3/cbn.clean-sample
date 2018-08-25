@@ -1,5 +1,6 @@
 {
   "files.exclude": {
+    "**/.data": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
@@ -28,6 +29,7 @@
     "CQRS",
     "Hmac",
     "IDDD",
+    "Npgsql",
     "classname",
     "msgs",
     "nuget"

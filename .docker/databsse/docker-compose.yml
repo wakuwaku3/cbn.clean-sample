@@ -1,0 +1,9 @@
+version: '2'
+services:
+  dddsample-postgres:
+    build: ./postgres
+    image: cbn/dddsample-postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ~/dddsample/postgresql/data/:/var/lib/postgresql/data:Z
