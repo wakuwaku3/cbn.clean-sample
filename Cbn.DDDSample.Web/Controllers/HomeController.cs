@@ -11,15 +11,9 @@ namespace Cbn.DDDSample.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IHomeService homeService;
-
-        public HomeController(IHomeService homeService) : base()
-        {
-            this.homeService = homeService;
-        }
         public string Index()
         {
-            return this.homeService.Execute();
+            return "welcome ddd sample";
         }
     }
 }

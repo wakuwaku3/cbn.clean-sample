@@ -8,7 +8,6 @@ namespace Cbn.DDDSample.Application
     {
         public void DefineModule(IDIBuilder builder)
         {
-            builder.RegisterType<HomeService>(x => x.As<IHomeService>());
             builder.RegisterType<AccountService>(x => x.As<IAccountService>());
         }
     }

@@ -42,7 +42,6 @@ namespace Cbn.DDDSample.Cli.Configuration
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
             builder.RegisterModule(new DDDSampleCommonDIModule());
-            builder.RegisterModule(new DomainHomeDIModule());
             builder.RegisterModule(new DomainAccountDIModule(LifetimeType.Singleton));
             builder.RegisterModule(new ApplicationDIModule());
             builder.RegisterModule(new MigrationDIModule(this.configurationRoot.GetConnectionString("MigrationConnectionString")));

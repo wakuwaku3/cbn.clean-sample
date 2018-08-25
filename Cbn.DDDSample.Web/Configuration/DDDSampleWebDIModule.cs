@@ -43,7 +43,6 @@ namespace Cbn.DDDSample.Web.Configuration
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
             builder.RegisterModule(new DDDSampleCommonDIModule());
-            builder.RegisterModule(new DomainHomeDIModule());
             builder.RegisterModule(new DomainAccountDIModule(LifetimeType.Scoped));
             builder.RegisterModule(new ApplicationDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
