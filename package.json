@@ -19,7 +19,8 @@
     "build": "gulp build",
     "publish": "gulp publish",
     "test": "gulp test",
-    "db": "gulp db"
+    "db": "gulp db",
+    "migration": "gulp migration"
   },
   "author": "",
   "license": "ISC"
