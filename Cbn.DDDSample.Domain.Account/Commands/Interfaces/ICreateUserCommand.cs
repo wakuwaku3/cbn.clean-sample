@@ -8,5 +8,6 @@ namespace Cbn.DDDSample.Domain.Account.Commands.Interfaces
     public interface ICreateUserCommand
     {
         Task<UserClaim> ExecuteAsync(UserCreationInfo userCreationInfo);
+        Task SendMailForNewUserAsync(UserClaim claim);
     }
 }

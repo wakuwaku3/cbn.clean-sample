@@ -24,7 +24,7 @@ namespace Cbn.DDDSample.Domain.Account.Shared
             this.userClaim = this.mapper.Map<UserClaim>(jwtClaim);
         }
 
-        public void SetClaims(UserClaim claim)
+        public void Impersonate(UserClaim claim)
         {
             this.userClaim = claim;
         }

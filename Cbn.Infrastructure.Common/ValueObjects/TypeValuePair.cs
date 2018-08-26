@@ -11,7 +11,11 @@ namespace Cbn.Infrastructure.Common.ValueObjects
         /// <summary>コンストラクタ</summary>
         public TypeValuePair(object value) : this(value, value?.GetType()) { }
         /// <summary>コンストラクタ</summary>
-        public TypeValuePair(object value, Type type) { this.Type = type; }
+        public TypeValuePair(object value, Type type)
+        {
+            this.Type = type;
+            this.Value = value;
+        }
         /// <summary>
         /// 型
         /// </summary>

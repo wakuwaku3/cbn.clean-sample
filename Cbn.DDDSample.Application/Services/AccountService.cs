@@ -39,6 +39,7 @@ namespace Cbn.DDDSample.Application.Services
         {
             var creationInfo = this.mapper.Map<UserCreationInfo>(args);
             var claim = await ExecuteAsync();
+            await this.createUserCommand.SendMailForNewUserAsync(claim);
             return await this.createTokenCommand.ExecuteAsync(claim);
 
             async Task<UserClaim> ExecuteAsync()

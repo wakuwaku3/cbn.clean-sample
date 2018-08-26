@@ -13,10 +13,13 @@ const path = require('path');
 const zip = require('gulp-zip');
 const spawn = require('child_process').spawn;
 
+const webName = 'Cbn.DDDSample.Web';
 const cliName = 'Cbn.DDDSample.Cli';
-const web = '**/Cbn.DDDSample.Web.csproj';
+const subscriberName = 'Cbn.DDDSample.Subscriber';
+const web = '**/' + webName + '.csproj';
 const cli = '**/' + cliName + '.csproj';
-const appEntries = [web, cli];
+const subscriber = '**/' + subscriberName + '.csproj';
+const appEntries = [web, cli, subscriber];
 const testEntries = [];
 const entries = appEntries.concat(testEntries);
 const dist = 'dist';
@@ -54,9 +57,26 @@ gulp.task('zip', cb => {
     .pipe(zip('application.zip'))
     .pipe(gulp.dest(dist));
 });
-//run
-gulp.task('run', () => {
-  return gulp.src(web, { read: false }).pipe(run());
+gulp.task('run', cb => {
+  return runSequence('build', ['run-subscriber', 'run-web'], cb);
+});
+gulp.task('run-web', () => {
+  const web = spawn('dotnet run --no-build', {
+    cwd: webName,
+    shell: true
+  });
+  web.stdout.on('data', data => console.log('stdout: ' + data));
+  web.stderr.on('data', data => console.log('stdout: ' + data));
+  return web;
+});
+gulp.task('run-subscriber', () => {
+  const subscriber = spawn('dotnet run --no-build', {
+    cwd: subscriberName,
+    shell: true
+  });
+  subscriber.stdout.on('data', data => console.log('stdout: ' + data));
+  subscriber.stderr.on('data', data => console.log('stdout: ' + data));
+  return subscriber;
 });
 gulp.task('db', cb => {
   return runSequence('up-docker-db', ['migration'], cb);
@@ -68,11 +88,11 @@ gulp.task('up-docker-db', () => {
   return docker;
 });
 gulp.task('migration', () => {
-  const docker = spawn('dotnet run migration', {
+  const migration = spawn('dotnet run migration', {
     cwd: cliName,
     shell: true
   });
-  docker.stdout.on('data', data => console.log('stdout: ' + data));
-  docker.stderr.on('data', data => console.log('stdout: ' + data));
-  return docker;
+  migration.stdout.on('data', data => console.log('stdout: ' + data));
+  migration.stderr.on('data', data => console.log('stdout: ' + data));
+  return migration;
 });

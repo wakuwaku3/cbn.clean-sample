@@ -54,13 +54,14 @@ namespace Cbn.Infrastructure.Autofac
         /// <inheritdoc/>
         public T Resolve<T>(params TypeValuePair[] parameters)
         {
-            return this.baseScope.Resolve<T>(parameters.Select(x => x.Convert()));
+            return this.baseScope.Resolve<T>(parameters.Select(x => x.Convert()).ToArray());
         }
 
         /// <inheritdoc/>
         public object Resolve(Type type, params TypeValuePair[] parameters)
         {
-            return this.baseScope.Resolve(type, parameters.Select(x => x.Convert()));
+            var p = parameters.Select(x => x.Convert()).ToArray();
+            return this.baseScope.Resolve(type, p);
         }
 
         #region IDisposable Support

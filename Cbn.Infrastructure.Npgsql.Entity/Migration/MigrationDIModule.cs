@@ -15,7 +15,10 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
         public void DefineModule(IDIBuilder builder)
         {
             var optionsBuilder = new DbContextOptionsBuilder<MigrationDbContext>();
-            optionsBuilder.UseNpgsql(this.connectionString);
+            if (!string.IsNullOrEmpty(this.connectionString))
+            {
+                optionsBuilder.UseNpgsql(this.connectionString);
+            }
             builder.RegisterInstance(optionsBuilder.Options);
             builder.RegisterType<MigrationDbContext>(x => x.As<IMigrationDbContext>().InstancePerLifetimeScope());
             builder.RegisterType<MigrationRepository>(x => x.As<IMigrationRepository<MigrationHistory>>());

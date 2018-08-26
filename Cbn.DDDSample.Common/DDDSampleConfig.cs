@@ -1,17 +1,15 @@
+using Cbn.DDDSample.Common.Interfaces;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
-using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
-using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
-using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
 
-namespace Cbn.DDDSample.Cli.Configuration
+namespace Cbn.DDDSample.Common
 {
-    public class CliConfig : IDbConfig, IJwtConfig, IMigrationConfig
+    public class DDDSampleConfig : IDDDSampleConfig
     {
         private IConfigurationRoot configurationRoot;
         private IConfigurationHelper configurationHelper;
 
-        public CliConfig(IConfigurationRoot configurationRoot, IConfigurationHelper configurationHelper)
+        public DDDSampleConfig(IConfigurationRoot configurationRoot, IConfigurationHelper configurationHelper)
         {
             this.configurationRoot = configurationRoot;
             this.configurationHelper = configurationHelper;
@@ -24,8 +22,10 @@ namespace Cbn.DDDSample.Cli.Configuration
         public string JwtAudience { get; set; }
         public string JwtIssuer { get; set; }
         public string Database { get; set; }
-
-        public string AdminConnectionString => this.GetConnectionString("AdminConnectionString");
+        public string AdminConnectionString => this.GetConnectionString("AdminConnection");
+        public string ProjectId { get; set; }
+        public string TopicId { get; set; }
+        public string SubscriptionId { get; set; }
 
         public string GetConnectionString(string name)
         {

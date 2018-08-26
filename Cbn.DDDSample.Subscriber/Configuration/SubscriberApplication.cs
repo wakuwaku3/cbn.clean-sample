@@ -1,51 +1,45 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Application.Services.Interfaces;
+using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
-namespace Cbn.DDDSample.Cli.Configuration
+namespace Cbn.DDDSample.Subscriber.Configuration
 {
-    public class CliApplication
+    public class SubscriberApplication
     {
         private CancellationTokenSource cancellationTokenSource;
         private CommandLineApplication application;
         private ILogger logger;
-        private IMigrationService migrationService;
+        private ISubscriber subscriber;
 
-        public CliApplication(
+        public SubscriberApplication(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
             ILogger logger,
-            IMigrationService migrationService)
+            ISubscriber subscriber)
         {
             this.application = application;
             this.cancellationTokenSource = cancellationTokenSource;
             this.logger = logger;
-            this.migrationService = migrationService;
+            this.subscriber = subscriber;
         }
 
         public int Execute(string[] args)
         {
             this.application.Name = nameof(DDDSample);
-            this.application.Description = "CliSampleプロジェクト";
+            this.application.Description = "Google Cloud Pub/Sub Subscriber";
             this.application.HelpOption("-h|--help");
 
-            this.application.Command("migration", command =>
+            this.application.OnExecute(async() =>
             {
-                command.Description = "database migration を行います。";
-                command.HelpOption("-h|--help");
-
-                command.OnExecute(async() =>
+                return await this.ExecuteOnErrorHandleAsync("Subscriber", async() =>
                 {
-                    return await this.ExecuteOnErrorHandleAsync("migration", async() =>
-                    {
-                        return await this.migrationService.ExecuteAsync();
-                    });
+                    await this.subscriber.SubscribeAsync();
+                    return 0;
                 });
             });
-
             return this.application.Execute(args);
         }
 

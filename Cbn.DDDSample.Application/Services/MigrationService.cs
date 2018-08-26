@@ -2,19 +2,20 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Cbn.DDDSample.Application.Services.Interfaces;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Exceptions;
 using Cbn.Infrastructure.Common.IO.Interfaces;
 
-namespace Cbn.DDDSample.Cli.WorkerServices
+namespace Cbn.DDDSample.Application.Services
 {
-    public class MigrationWorkerService
+    public class MigrationService : IMigrationService
     {
         private IPathResolver pathResolver;
         private IScopeProvider scopeProvider;
 
-        public MigrationWorkerService(
+        public MigrationService(
             IPathResolver pathResolver,
             IScopeProvider scopeProvider)
         {

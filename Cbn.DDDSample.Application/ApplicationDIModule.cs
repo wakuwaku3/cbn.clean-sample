@@ -9,6 +9,7 @@ namespace Cbn.DDDSample.Application
         public void DefineModule(IDIBuilder builder)
         {
             builder.RegisterType<AccountService>(x => x.As<IAccountService>());
+            builder.RegisterType<MigrationService>(x => x.As<IMigrationService>());
         }
     }
 }
