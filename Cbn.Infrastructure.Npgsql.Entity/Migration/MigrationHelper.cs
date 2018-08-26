@@ -45,7 +45,7 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
 
         public async Task InitializeDatabaseAsync()
         {
-            this.logger.LogInformation("Start create database");
+            this.logger.LogInformation($"Start create database at {this.config.AdminConnectionString}");
             using(var connection = new NpgsqlConnection(this.config.AdminConnectionString))
             {
                 await connection.OpenAsync();
