@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Cbn.DDDSample.Application.Services.Interfaces;
+using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
@@ -13,17 +15,20 @@ namespace Cbn.DDDSample.Subscriber.Configuration
         private CommandLineApplication application;
         private ILogger logger;
         private ISubscriber subscriber;
+        private IMigrationService migrationService;
 
         public SubscriberApplication(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
             ILogger logger,
-            ISubscriber subscriber)
+            ISubscriber subscriber,
+            IMigrationService migrationService)
         {
             this.application = application;
             this.cancellationTokenSource = cancellationTokenSource;
             this.logger = logger;
             this.subscriber = subscriber;
+            this.migrationService = migrationService;
         }
 
         public int Execute(string[] args)
@@ -36,6 +41,7 @@ namespace Cbn.DDDSample.Subscriber.Configuration
             {
                 return await this.ExecuteOnErrorHandleAsync("Subscriber", async() =>
                 {
+                    await this.migrationService.ExecuteAsync();
                     await this.subscriber.SubscribeAsync();
                     return 0;
                 });

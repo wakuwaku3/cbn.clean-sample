@@ -25,7 +25,8 @@ namespace Cbn.DDDSample.Application.Services
 
         public async Task<int> ExecuteAsync()
         {
-            var files = Directory.GetFiles(this.pathResolver.ResolveDirectoryPath(".migration"), "*.sql", SearchOption.AllDirectories)
+            var dir = this.pathResolver.ResolveDirectoryPath("../.migration");
+            var files = Directory.GetFiles(dir, "*.sql", SearchOption.AllDirectories)
                 .OrderBy(x => x)
                 .GroupBy(x => Path.GetFileNameWithoutExtension(x))
                 .ToArray();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Cbn.DDDSample.Application.Services.Interfaces;
 using Cbn.DDDSample.Domain.Account.Models;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;
@@ -61,6 +62,8 @@ namespace Cbn.DDDSample.Web.Configuration
             builder.Populate(services);
             builder.RegisterModule(new DDDSampleWebDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
             var scope = builder.Build();
+            var migrationService = scope.Resolve<IMigrationService>();
+            migrationService.ExecuteAsync().Wait();
             return builder.CreateServiceProvider();
         }
 
