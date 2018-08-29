@@ -5,8 +5,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cbn.DDDSample.Common\Cbn.DDDSample.Common.csproj" />
-    <ProjectReference Include="..\Cbn.Infrastructure.DDDSampleData\Cbn.Infrastructure.DDDSampleData.csproj" />
-    <ProjectReference Include="..\Cbn.Infrastructure.JsonWebToken\Cbn.Infrastructure.JsonWebToken.csproj" />
   </ItemGroup>
 
 </Project>

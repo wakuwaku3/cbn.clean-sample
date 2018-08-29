@@ -1,5 +1,5 @@
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
-using Cbn.Infrastructure.JsonWebToken.Interfaces;
 
 namespace Cbn.Infrastructure.JsonWebToken
 {

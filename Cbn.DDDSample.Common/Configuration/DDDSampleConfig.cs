@@ -2,7 +2,7 @@ using Cbn.DDDSample.Common.Interfaces;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
 
-namespace Cbn.DDDSample.Common
+namespace Cbn.DDDSample.Common.Configuration
 {
     public class DDDSampleConfig : IDDDSampleConfig
     {

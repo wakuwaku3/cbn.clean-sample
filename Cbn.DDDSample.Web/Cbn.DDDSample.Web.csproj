@@ -10,11 +10,11 @@
     <ProjectReference Include="..\Cbn.DDDSample.Application\Cbn.DDDSample.Application.csproj" />
     <ProjectReference Include="..\Cbn.Infrastructure.AspNetCore\Cbn.Infrastructure.AspNetCore.csproj" />
     <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
+    <ProjectReference Include="..\Cbn.Infrastructure.DDDSampleData\Cbn.Infrastructure.DDDSampleData.csproj" />
+    <ProjectReference Include="..\Cbn.Infrastructure.Messaging\Cbn.Infrastructure.Messaging.csproj" />
+    <ProjectReference Include="..\Cbn.Infrastructure.JsonWebToken\Cbn.Infrastructure.JsonWebToken.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 </Project>

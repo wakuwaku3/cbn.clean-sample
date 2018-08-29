@@ -19,9 +19,9 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
             return e => e.MigrationHistoryId == id;
         }
 
-        void IMigrationRepository<MigrationHistory>.Add(MigrationHistory entity)
+        async Task IMigrationRepository<MigrationHistory>.AddAsync(MigrationHistory entity)
         {
-            this.Add(entity);
+            await this.AddAsync(entity);
         }
     }
 }

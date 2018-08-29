@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Cbn.DDDSample.Domain.Account.Models;
+using Cbn.DDDSample.Common.Models;
 
-namespace Cbn.DDDSample.Domain.Account.Commands.Interfaces
+namespace Cbn.DDDSample.Domain.Account.Interfaces.Command
 {
     public interface ICreateTokenCommand
     {

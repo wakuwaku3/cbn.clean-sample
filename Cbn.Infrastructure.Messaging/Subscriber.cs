@@ -8,7 +8,6 @@ using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.Common.ValueObjects;
 using Cbn.Infrastructure.Messaging.Extensions;
-using Cbn.Infrastructure.Messaging.Interfaces;
 using Google.Cloud.PubSub.V1;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -18,14 +17,14 @@ namespace Cbn.Infrastructure.Messaging
     public class Subscriber : ISubscriber
     {
         private ILogger logger;
-        private IMessagingConfig messagingConfig;
+        private IGoogleMessagingConfig messagingConfig;
         private IScopeProvider scopeProvider;
         private CancellationTokenSource tokenSource;
         private ITypeHelper typeHelper;
         private Lazy<Task<SubscriberClient>> subscriberLazy;
 
         public Subscriber(
-            IMessagingConfig messagingConfig,
+            IGoogleMessagingConfig messagingConfig,
             IScopeProvider scopeProvider,
             ILogger logger,
             CancellationTokenSource tokenSource,

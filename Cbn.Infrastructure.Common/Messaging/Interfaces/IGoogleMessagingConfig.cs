@@ -1,6 +1,6 @@
-namespace Cbn.Infrastructure.Messaging.Interfaces
+namespace Cbn.Infrastructure.Common.Messaging.Interfaces
 {
-    public interface IMessagingConfig
+    public interface IGoogleMessagingConfig
     {
         string ProjectId { get; }
         string TopicId { get; }

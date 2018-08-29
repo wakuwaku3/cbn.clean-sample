@@ -1,20 +1,18 @@
 using Cbn.DDDSample.Application;
 using Cbn.DDDSample.Common;
-using Cbn.DDDSample.Domain;
 using Cbn.DDDSample.Domain.Account;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
+using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.DDDSampleData;
 using Cbn.Infrastructure.JsonWebToken;
-using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
 using Cbn.Infrastructure.Messaging;
-using Cbn.Infrastructure.Messaging.Interfaces;
-using Cbn.Infrastructure.Npgsql.Entity;
 using Cbn.Infrastructure.Npgsql.Entity.Migration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -47,8 +45,8 @@ namespace Cbn.DDDSample.Web.Configuration
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
             builder.RegisterModule(new MessagingDIModule());
-            builder.RegisterModule(new DDDSampleCommonDIModule());
-            builder.RegisterModule(new DomainAccountDIModule(LifetimeType.Scoped));
+            builder.RegisterModule(new DDDSampleCommonDIModule(LifetimeType.Scoped));
+            builder.RegisterModule(new DomainAccountDIModule());
             builder.RegisterModule(new ApplicationDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
             builder.RegisterModule(new MigrationDIModule(this.configurationRoot.GetConnectionString("MigrationConnection")));
@@ -57,7 +55,7 @@ namespace Cbn.DDDSample.Web.Configuration
                 .As<IWebConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IMessagingConfig>()
+                .As<IGoogleMessagingConfig>()
                 .SingleInstance());
         }
     }

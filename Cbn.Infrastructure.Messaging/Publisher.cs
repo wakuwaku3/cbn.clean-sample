@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.Messaging.Extensions;
-using Cbn.Infrastructure.Messaging.Interfaces;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Newtonsoft.Json;
@@ -12,10 +10,10 @@ namespace Cbn.Infrastructure.Messaging
 {
     public class Publisher : IPublisher
     {
-        private IMessagingConfig messagingConfig;
+        private IGoogleMessagingConfig messagingConfig;
         private Lazy<Task<PublisherClient>> publisherLazy;
 
-        public Publisher(IMessagingConfig messagingConfig)
+        public Publisher(IGoogleMessagingConfig messagingConfig)
         {
             this.messagingConfig = messagingConfig;
             this.publisherLazy = new Lazy<Task<PublisherClient>>(() => this.messagingConfig.CreatePublisherClientAsync());

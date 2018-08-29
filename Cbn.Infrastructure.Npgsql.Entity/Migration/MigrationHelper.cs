@@ -107,8 +107,7 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
             try
             {
                 await this.DbContext.ExecuteAsync(query);
-                this.migrationRepository.Add(history);
-                await this.DbContext.SaveChangesAsync();
+                await this.migrationRepository.AddAsync(history);
                 transaction.Commit();
                 this.logger.LogInformation($"End execute {path}");
             }

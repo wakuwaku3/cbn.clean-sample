@@ -1,12 +1,10 @@
-using System.Net.Mail;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Domain.Account.Commands.Interfaces;
+using Cbn.DDDSample.Common.Models;
+using Cbn.DDDSample.Domain.Account.Interfaces.Command;
+using Cbn.DDDSample.Domain.Account.Interfaces.Repositories;
 using Cbn.DDDSample.Domain.Account.Models;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
-using Cbn.Infrastructure.DDDSampleData.Entities;
-using Cbn.Infrastructure.DDDSampleData.Models.User;
-using Cbn.Infrastructure.DDDSampleData.Repositories.Interfaces;
 
 namespace Cbn.DDDSample.Domain.Account.Commands
 {

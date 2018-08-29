@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using Cbn.DDDSample.Common.Constants;
+using Cbn.DDDSample.Domain.Account.Interfaces.Entities;
 
 namespace Cbn.Infrastructure.DDDSampleData.Entities
 {
     [Table("users")]
-    public class User
+    public class User : IUser
     {
         [Column("user_id")]
         [Key]
@@ -32,10 +34,5 @@ namespace Cbn.Infrastructure.DDDSampleData.Entities
 
         [Column("state")]
         public UserState State { get; set; }
-    }
-    public enum UserState
-    {
-        Active,
-        Deleted,
     }
 }

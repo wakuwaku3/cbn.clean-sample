@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
-using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
 using Cbn.Infrastructure.JsonWebToken.Entities;
-using Cbn.Infrastructure.JsonWebToken.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Cbn.Infrastructure.JsonWebToken
@@ -23,18 +24,37 @@ namespace Cbn.Infrastructure.JsonWebToken
             this.jwtConfig = jwtConfig;
             this.securityTokenHandler = securityTokenHandler;
         }
-        public string Create(JwtClaimInfo claimInfo)
+
+        public string Create(IJwtClaimInfo claimInfo)
         {
             var expires = this.systemClock.Now.AddDays(this.jwtConfig.JwtExpiresDate);
 
             var token = new JwtSecurityToken(
                 issuer: this.jwtConfig.JwtIssuer,
                 audience: this.jwtConfig.JwtAudience,
-                claims: claimInfo.GetClaims(),
+                claims: this.GetClaims(claimInfo),
                 expires: expires,
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.jwtConfig.JwtSecret)), SecurityAlgorithms.HmacSha256)
             );
             return this.securityTokenHandler.WriteToken(token);
+        }
+
+        private IEnumerable<Claim> GetClaims(IJwtClaimInfo claimInfo)
+        {
+            // JwtBearerAuthentication 用
+            yield return new Claim(JwtRegisteredClaimNames.Jti, claimInfo.UserId);
+            yield return new Claim(JwtRegisteredClaimNames.Sub, claimInfo.Name);
+            yield return new Claim(JwtRegisteredClaimNames.Email, claimInfo.Email);
+            // User.Identity プロパティ用
+            yield return new Claim(ClaimTypes.Sid, claimInfo.UserId);
+            yield return new Claim(ClaimTypes.Name, claimInfo.Name);
+            yield return new Claim(ClaimTypes.Locality, claimInfo.CultureInfo.ToString());
+            yield return new Claim(ClaimTypes.Email, claimInfo.Email);
+        }
+
+        public IJwtClaimInfo Create(ClaimsPrincipal claimsPrincipal)
+        {
+            return new JwtClaimInfo(claimsPrincipal);
         }
     }
 }

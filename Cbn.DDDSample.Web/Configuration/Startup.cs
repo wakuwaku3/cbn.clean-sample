@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Cbn.DDDSample.Application.Services.Interfaces;
+using Cbn.DDDSample.Application.Interfaces.Services;
+using Cbn.DDDSample.Common.Models;
 using Cbn.DDDSample.Domain.Account.Models;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;

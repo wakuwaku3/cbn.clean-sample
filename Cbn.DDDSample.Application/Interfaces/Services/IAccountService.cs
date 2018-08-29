@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Cbn.DDDSample.Application.Models.Account;
 
-namespace Cbn.DDDSample.Application.Services.Interfaces
+namespace Cbn.DDDSample.Application.Interfaces.Services
 {
     public interface IAccountService
     {

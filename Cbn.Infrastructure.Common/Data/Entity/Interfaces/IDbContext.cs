@@ -7,12 +7,11 @@ using Cbn.Infrastructure.Common.Data.Interfaces;
 
 namespace Cbn.Infrastructure.Common.Data.Entity.Interfaces
 {
-    public interface IDbContext : IDisposable
+    public interface IDbContext : IDbTransactionManager, IDisposable
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();
         IDbSet<TEntity> Set<TEntity>() where TEntity : class;
-        Task<IDbTransaction> BeginTransactionAsync();
 
         IDbQuery CreateDbQuery(string sql);
         IDbQuery CreateDbQueryById(string sqlId = null);

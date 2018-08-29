@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces;
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Microsoft.AspNetCore.Routing;
 
 namespace Cbn.Infrastructure.AspNetCore.Configuration.Interfaces

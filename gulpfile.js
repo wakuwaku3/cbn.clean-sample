@@ -36,6 +36,15 @@ gulp.task('restore', () => {
 gulp.task('build', () => {
   return gulp.src(entries, { read: false }).pipe(build());
 });
+gulp.task('build-web', () => {
+  return gulp.src(web, { read: false }).pipe(build());
+});
+gulp.task('build-cli', () => {
+  return gulp.src(cli, { read: false }).pipe(build());
+});
+gulp.task('build-subscriber', () => {
+  return gulp.src(subscriber, { read: false }).pipe(build());
+});
 //run unit tests
 gulp.task('test', () => {
   return gulp.src(testEntries, { read: false }).pipe(test());
@@ -57,11 +66,8 @@ gulp.task('zip', cb => {
     .pipe(zip('application.zip'))
     .pipe(gulp.dest(dist));
 });
-gulp.task('run', cb => {
-  return runSequence('build', ['run-subscriber', 'run-web'], cb);
-});
 gulp.task('run-web', () => {
-  const web = spawn('dotnet run --no-build', {
+  const web = spawn('dotnet run', {
     cwd: webName,
     shell: true
   });
@@ -70,7 +76,7 @@ gulp.task('run-web', () => {
   return web;
 });
 gulp.task('run-subscriber', () => {
-  const subscriber = spawn('dotnet run --no-build', {
+  const subscriber = spawn('dotnet run', {
     cwd: subscriberName,
     shell: true
   });
@@ -79,9 +85,6 @@ gulp.task('run-subscriber', () => {
   return subscriber;
 });
 gulp.task('db', cb => {
-  return runSequence('up-docker-db', ['migration'], cb);
-});
-gulp.task('up-docker-db', () => {
   const docker = spawn('bash .docker/database/run.sh', { shell: true });
   docker.stdout.on('data', data => console.log('stdout: ' + data));
   docker.stderr.on('data', data => console.log('stdout: ' + data));

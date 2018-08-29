@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cbn.DDDSample.Common\Cbn.DDDSample.Common.csproj" />
     <ProjectReference Include="..\Cbn.DDDSample.Domain.Account\Cbn.DDDSample.Domain.Account.csproj" />
   </ItemGroup>
 </Project>

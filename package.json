@@ -14,9 +14,14 @@
     "run-sequence": "^2.2.1"
   },
   "scripts": {
-    "start": "gulp run",
+    "web": "gulp run-web",
+    "subscriber": "gulp run-subscriber",
     "install": "gulp restore",
+    "restore": "gulp restore",
     "build": "gulp build",
+    "build-web": "gulp build-web",
+    "build-cli": "gulp build-cli",
+    "build-subscriber": "gulp build-subscriber",
     "publish": "gulp publish",
     "test": "gulp test",
     "db": "gulp db",

@@ -1,10 +1,8 @@
 using System.Threading.Tasks;
-using Cbn.DDDSample.Domain.Account.Commands.Interfaces;
-using Cbn.DDDSample.Domain.Account.Models;
+using Cbn.DDDSample.Common.Models;
+using Cbn.DDDSample.Domain.Account.Interfaces.Command;
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
-using Cbn.Infrastructure.DDDSampleData.Entities;
-using Cbn.Infrastructure.JsonWebToken.Entities;
-using Cbn.Infrastructure.JsonWebToken.Interfaces;
 
 namespace Cbn.DDDSample.Domain.Account.Commands
 {
@@ -21,8 +19,7 @@ namespace Cbn.DDDSample.Domain.Account.Commands
 
         public async Task<string> ExecuteAsync(UserClaim userClaim)
         {
-            var claimInfo = this.mapper.Map<JwtClaimInfo>(userClaim);
-            return await Task.FromResult(this.jwtFactory.Create(claimInfo));
+            return await Task.FromResult(this.jwtFactory.Create(userClaim));
         }
     }
 }

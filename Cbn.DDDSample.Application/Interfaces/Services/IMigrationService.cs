@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Cbn.DDDSample.Application.Services.Interfaces
+namespace Cbn.DDDSample.Application.Interfaces.Services
 {
     public interface IMigrationService
     {

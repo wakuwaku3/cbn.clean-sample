@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
+using Cbn.DDDSample.Application.Interfaces.Services;
 using Cbn.DDDSample.Application.Models.Account;
-using Cbn.DDDSample.Application.Services.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

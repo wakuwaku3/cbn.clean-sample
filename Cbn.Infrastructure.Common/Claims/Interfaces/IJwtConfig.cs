@@ -1,4 +1,4 @@
-namespace Cbn.Infrastructure.JsonWebToken.Configuration.Interfaces
+namespace Cbn.Infrastructure.Common.Claims.Interfaces
 {
     public interface IJwtConfig
     {

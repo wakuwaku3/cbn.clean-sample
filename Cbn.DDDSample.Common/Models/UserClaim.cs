@@ -1,12 +1,13 @@
 using System.Globalization;
+using Cbn.Infrastructure.Common.Claims.Interfaces;
 
-namespace Cbn.Infrastructure.DDDSampleData.Models.User
+namespace Cbn.DDDSample.Common.Models
 {
-    public class UserCreationInfo
+    public class UserClaim : IJwtClaimInfo
     {
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public CultureInfo CultureInfo { get; set; }
     }
 }

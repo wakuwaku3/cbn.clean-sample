@@ -5,11 +5,12 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;
+using Cbn.Infrastructure.Common.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cbn.Infrastructure.Npgsql.Entity.Repositories
 {
-    public abstract class DbRepositoryBase<TKey, TEntity> : IDbRepository<TKey, TEntity> where TEntity : class
+    public abstract class DbRepositoryBase<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : class
     {
         private Lazy<IDbContext> dbContextLazy;
         private IDbContext DbContext => this.dbContextLazy.Value;
@@ -21,14 +22,28 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Repositories
             this.dbContextLazy = dbContextLazy;
         }
 
-        protected virtual void Add(TEntity entity)
+        protected virtual async Task AddAsync(TEntity entity)
         {
             this.DbSet.Add(entity);
+            await this.DbContext.SaveChangesAsync();
         }
 
-        protected virtual void AddRange(IEnumerable<TEntity> entities)
+        protected virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             this.DbSet.AddRange(entities);
+            await this.DbContext.SaveChangesAsync();
+        }
+
+        protected virtual async Task UpdateAsync(TEntity entity)
+        {
+            this.DbSet.Update(entity);
+            await this.DbContext.SaveChangesAsync();
+        }
+
+        protected virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities)
+        {
+            this.DbSet.UpdateRange(entities);
+            await this.DbContext.SaveChangesAsync();
         }
 
         public async Task<bool> ExistsAsync(TKey id)
@@ -43,14 +58,16 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Repositories
 
         protected abstract Expression<Func<TEntity, bool>> GetKeyExpression(TKey id);
 
-        protected virtual void Remove(TEntity entity)
+        protected virtual async Task RemoveAsync(TEntity entity)
         {
             this.DbSet.Remove(entity);
+            await this.DbContext.SaveChangesAsync();
         }
 
-        protected virtual void RemoveRange(IEnumerable<TEntity> entities)
+        protected virtual async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
         {
             this.DbSet.RemoveRange(entities);
+            await this.DbContext.SaveChangesAsync();
         }
     }
     public abstract class DbRepositoryBase<TEntity> : DbRepositoryBase<string, TEntity> where TEntity : class

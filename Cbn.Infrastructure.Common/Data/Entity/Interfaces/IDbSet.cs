@@ -16,6 +16,8 @@ namespace Cbn.Infrastructure.Common.Data.Entity.Interfaces
         void AddRange(IEnumerable<TEntity> entities);
         TEntity Find(int id);
         Task<TEntity> FindAsync(int id);
+        void Update(TEntity entity);
+        void UpdateRange(IEnumerable<TEntity> entities);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
         Task<List<TEntity>> ToListAsync();

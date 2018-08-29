@@ -1,5 +1,5 @@
+using Cbn.DDDSample.Application.Interfaces.Services;
 using Cbn.DDDSample.Application.Services;
-using Cbn.DDDSample.Application.Services.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 
 namespace Cbn.DDDSample.Application

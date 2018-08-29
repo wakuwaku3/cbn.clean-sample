@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
+using Cbn.DDDSample.Application.Interfaces.Queries;
+using Cbn.DDDSample.Application.Interfaces.Services;
 using Cbn.DDDSample.Application.Models.Account;
-using Cbn.DDDSample.Application.Services.Interfaces;
-using Cbn.DDDSample.Domain.Account.Commands.Interfaces;
+using Cbn.DDDSample.Common.Models;
+using Cbn.DDDSample.Domain.Account.Interfaces.Command;
 using Cbn.DDDSample.Domain.Account.Models;
-using Cbn.DDDSample.Domain.Account.Queries.Interfaces;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
-using Cbn.Infrastructure.DDDSampleData.Models.User;
 
 namespace Cbn.DDDSample.Application.Services
 {
@@ -66,15 +66,14 @@ namespace Cbn.DDDSample.Application.Services
 
         public async Task<string> SignInAsync(SignInArgs args)
         {
-            var signIn = this.mapper.Map<SignIn>(args);
-            var claim = await this.userQuery.GetSignInUserAsync(signIn);
-            return await this.createTokenCommand.ExecuteAsync(claim);
+            var userClaim = await this.userQuery.GetSignInUserClaimAsync(args);
+            return await this.createTokenCommand.ExecuteAsync(userClaim);
         }
 
         public async Task<string> RefreshTokenAsync()
         {
-            var claim = await this.userQuery.GetCurrentUserClaimFromDataAsync();
-            return await this.createTokenCommand.ExecuteAsync(claim);
+            var userClaim = await this.userQuery.GetCurrentUserClaimAsync();
+            return await this.createTokenCommand.ExecuteAsync(userClaim);
         }
     }
 }

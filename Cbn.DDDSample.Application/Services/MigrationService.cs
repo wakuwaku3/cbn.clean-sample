@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Application.Services.Interfaces;
+using Cbn.DDDSample.Application.Interfaces.Services;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Exceptions;
