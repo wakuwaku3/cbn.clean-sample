@@ -1,5 +1,5 @@
 using System.Globalization;
-using Cbn.DDDSample.Common.Constants;
+using Cbn.DDDSample.Domain.Common.Constants;
 
 namespace Cbn.DDDSample.Domain.Account.Interfaces.Entities
 {

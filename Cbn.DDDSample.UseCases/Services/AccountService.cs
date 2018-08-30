@@ -1,15 +1,15 @@
 using System;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Application.Interfaces.Queries;
-using Cbn.DDDSample.Application.Interfaces.Services;
-using Cbn.DDDSample.Application.Models.Account;
-using Cbn.DDDSample.Common.Models;
 using Cbn.DDDSample.Domain.Account.Interfaces.Command;
 using Cbn.DDDSample.Domain.Account.Models;
+using Cbn.DDDSample.Domain.Common.Models;
+using Cbn.DDDSample.UseCases.Interfaces.Queries;
+using Cbn.DDDSample.UseCases.Interfaces.Services;
+using Cbn.DDDSample.UseCases.Models.Account;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 
-namespace Cbn.DDDSample.Application.Services
+namespace Cbn.DDDSample.UseCases.Services
 {
     public class AccountService : IAccountService
     {

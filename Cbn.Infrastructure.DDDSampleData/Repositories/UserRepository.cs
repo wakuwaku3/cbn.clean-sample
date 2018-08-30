@@ -1,13 +1,13 @@
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Application.Interfaces.Queries;
-using Cbn.DDDSample.Application.Models.Account;
-using Cbn.DDDSample.Common.Constants;
-using Cbn.DDDSample.Common.Models;
 using Cbn.DDDSample.Domain.Account.Interfaces.Entities;
 using Cbn.DDDSample.Domain.Account.Interfaces.Repositories;
 using Cbn.DDDSample.Domain.Account.Models;
+using Cbn.DDDSample.Domain.Common.Constants;
+using Cbn.DDDSample.Domain.Common.Models;
+using Cbn.DDDSample.UseCases.Interfaces.Queries;
+using Cbn.DDDSample.UseCases.Models.Account;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Cryptography.Interfaces;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;

@@ -1,8 +1,8 @@
 using System.Reflection;
-using Cbn.DDDSample.Application;
-using Cbn.DDDSample.Common;
-using Cbn.DDDSample.Common.Configuration;
 using Cbn.DDDSample.Domain.Account;
+using Cbn.DDDSample.Domain.Common;
+using Cbn.DDDSample.Domain.Common.Configuration;
+using Cbn.DDDSample.UseCases;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
@@ -44,9 +44,9 @@ namespace Cbn.DDDSample.Cli.Configuration
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
             builder.RegisterModule(new MessagingDIModule());
-            builder.RegisterModule(new DDDSampleCommonDIModule(LifetimeType.Singleton));
+            builder.RegisterModule(new DDDSampleDomainCommonDIModule(LifetimeType.Singleton));
             builder.RegisterModule(new DomainAccountDIModule());
-            builder.RegisterModule(new ApplicationDIModule());
+            builder.RegisterModule(new UseCasesDIModule());
             builder.RegisterModule(new MigrationDIModule(this.configurationRoot.GetConnectionString("MigrationConnection")));
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
             builder.RegisterType<DDDSampleConfig>(x =>

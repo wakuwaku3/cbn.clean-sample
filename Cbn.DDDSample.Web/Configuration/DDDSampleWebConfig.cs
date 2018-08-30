@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Cbn.DDDSample.Common.Configuration;
+using Cbn.DDDSample.Domain.Common.Configuration;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
 using Microsoft.AspNetCore.Builder;

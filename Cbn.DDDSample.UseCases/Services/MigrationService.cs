@@ -2,13 +2,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Application.Interfaces.Services;
+using Cbn.DDDSample.UseCases.Interfaces.Services;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Exceptions;
 using Cbn.Infrastructure.Common.IO.Interfaces;
 
-namespace Cbn.DDDSample.Application.Services
+namespace Cbn.DDDSample.UseCases.Services
 {
     public class MigrationService : IMigrationService
     {

@@ -1,8 +1,8 @@
-using Cbn.DDDSample.Common.Interfaces;
+using Cbn.DDDSample.Domain.Common.Interfaces;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
 using Microsoft.Extensions.Configuration;
 
-namespace Cbn.DDDSample.Common.Configuration
+namespace Cbn.DDDSample.Domain.Common.Configuration
 {
     public class DDDSampleConfig : IDDDSampleConfig
     {

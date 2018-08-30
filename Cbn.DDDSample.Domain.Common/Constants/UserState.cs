@@ -1,4 +1,4 @@
-namespace Cbn.DDDSample.Common.Constants
+namespace Cbn.DDDSample.Domain.Common.Constants
 {
     public enum UserState
     {

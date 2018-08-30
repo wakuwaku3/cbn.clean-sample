@@ -1,10 +1,10 @@
-using Cbn.DDDSample.Application.Interfaces.Services;
-using Cbn.DDDSample.Application.Services;
+using Cbn.DDDSample.UseCases.Interfaces.Services;
+using Cbn.DDDSample.UseCases.Services;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 
-namespace Cbn.DDDSample.Application
+namespace Cbn.DDDSample.UseCases
 {
-    public class ApplicationDIModule : IDIModule
+    public class UseCasesDIModule : IDIModule
     {
         public void DefineModule(IDIBuilder builder)
         {

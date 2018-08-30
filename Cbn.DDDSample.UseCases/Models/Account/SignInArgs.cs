@@ -1,4 +1,4 @@
-namespace Cbn.DDDSample.Application.Models.Account
+namespace Cbn.DDDSample.UseCases.Models.Account
 {
     public class SignInArgs
     {

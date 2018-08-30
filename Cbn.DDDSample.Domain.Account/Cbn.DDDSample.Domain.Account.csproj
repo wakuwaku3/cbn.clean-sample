@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cbn.DDDSample.Common\Cbn.DDDSample.Common.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cbn.DDDSample.Domain.Common\Cbn.DDDSample.Domain.Common.csproj" />
+    </ItemGroup>
 
 </Project>

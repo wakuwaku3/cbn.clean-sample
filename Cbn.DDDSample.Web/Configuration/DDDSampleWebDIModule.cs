@@ -1,6 +1,6 @@
-using Cbn.DDDSample.Application;
-using Cbn.DDDSample.Common;
 using Cbn.DDDSample.Domain.Account;
+using Cbn.DDDSample.Domain.Common;
+using Cbn.DDDSample.UseCases;
 using Cbn.Infrastructure.AspNetCore.Configuration.Interfaces;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
@@ -45,9 +45,9 @@ namespace Cbn.DDDSample.Web.Configuration
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new DDDSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
             builder.RegisterModule(new MessagingDIModule());
-            builder.RegisterModule(new DDDSampleCommonDIModule(LifetimeType.Scoped));
+            builder.RegisterModule(new DDDSampleDomainCommonDIModule(LifetimeType.Scoped));
             builder.RegisterModule(new DomainAccountDIModule());
-            builder.RegisterModule(new ApplicationDIModule());
+            builder.RegisterModule(new UseCasesDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
             builder.RegisterModule(new MigrationDIModule(this.configurationRoot.GetConnectionString("MigrationConnection")));
             builder.RegisterType<DDDSampleWebConfig>(x =>

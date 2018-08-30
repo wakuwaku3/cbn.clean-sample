@@ -1,9 +1,9 @@
 using System.Security.Claims;
-using Cbn.DDDSample.Common.Models;
+using Cbn.DDDSample.Domain.Common.Models;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 
-namespace Cbn.DDDSample.Common
+namespace Cbn.DDDSample.Domain.Common
 {
     public class UserClaimContext : IClaimContext<UserClaim>
     {

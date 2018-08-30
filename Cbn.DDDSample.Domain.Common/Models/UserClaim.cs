@@ -1,7 +1,7 @@
 using System.Globalization;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 
-namespace Cbn.DDDSample.Common.Models
+namespace Cbn.DDDSample.Domain.Common.Models
 {
     public class UserClaim : IJwtClaimInfo
     {

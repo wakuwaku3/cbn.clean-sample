@@ -1,5 +1,5 @@
-using Cbn.DDDSample.Application.Interfaces.Queries;
 using Cbn.DDDSample.Domain.Account.Interfaces.Repositories;
+using Cbn.DDDSample.UseCases.Interfaces.Queries;
 using Cbn.Infrastructure.Common.Data;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;
 using Cbn.Infrastructure.Common.Data.Interfaces;

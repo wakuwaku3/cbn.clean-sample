@@ -1,15 +1,15 @@
-using Cbn.DDDSample.Common.Models;
+using Cbn.DDDSample.Domain.Common.Models;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 
-namespace Cbn.DDDSample.Common
+namespace Cbn.DDDSample.Domain.Common
 {
-    public class DDDSampleCommonDIModule : IDIModule
+    public class DDDSampleDomainCommonDIModule : IDIModule
     {
         private LifetimeType claimContextLifetimeType;
 
-        public DDDSampleCommonDIModule(LifetimeType claimContextLifetimeType)
+        public DDDSampleDomainCommonDIModule(LifetimeType claimContextLifetimeType)
         {
             this.claimContextLifetimeType = claimContextLifetimeType;
         }

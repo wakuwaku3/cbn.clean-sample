@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cbn.DDDSample.Application.Interfaces.Services;
+using Cbn.DDDSample.UseCases.Interfaces.Services;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using Cbn.DDDSample.Common.Constants;
 using Cbn.DDDSample.Domain.Account.Interfaces.Entities;
+using Cbn.DDDSample.Domain.Common.Constants;
 
 namespace Cbn.Infrastructure.DDDSampleData.Entities
 {

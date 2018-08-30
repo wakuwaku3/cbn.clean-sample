@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using Cbn.DDDSample.Common.Models;
 using Cbn.DDDSample.Domain.Account.Models;
+using Cbn.DDDSample.Domain.Common.Models;
 
 namespace Cbn.DDDSample.Domain.Account.Interfaces.Command
 {

@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using Cbn.DDDSample.Common.Models;
 using Cbn.DDDSample.Domain.Account.Interfaces.Command;
 using Cbn.DDDSample.Domain.Account.Interfaces.Repositories;
 using Cbn.DDDSample.Domain.Account.Models;
+using Cbn.DDDSample.Domain.Common.Models;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 

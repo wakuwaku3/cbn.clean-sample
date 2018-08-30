@@ -4,9 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Cbn.DDDSample.UseCases\Cbn.DDDSample.UseCases.csproj" />
+        <ProjectReference Include="..\Cbn.DDDSample.Domain.Common\Cbn.DDDSample.Domain.Common.csproj" />
         <ProjectReference Include="..\Cbn.DDDSample.Domain.Account\Cbn.DDDSample.Domain.Account.csproj" />
-        <ProjectReference Include="..\Cbn.Infrastructure.Npgsql.Entity\Cbn.Infrastructure.Npgsql.Entity.csproj" />
     </ItemGroup>
-
 </Project>
