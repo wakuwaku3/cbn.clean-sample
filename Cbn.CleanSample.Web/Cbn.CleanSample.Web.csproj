@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup>
+        <UserSecretsId>cleansample-web-secret</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cbn.CleanSample.UseCases\Cbn.CleanSample.UseCases.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.AspNetCore\Cbn.Infrastructure.AspNetCore.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.CleanSampleData\Cbn.Infrastructure.CleanSampleData.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.Messaging\Cbn.Infrastructure.Messaging.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.JsonWebToken\Cbn.Infrastructure.JsonWebToken.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
+    </ItemGroup>
+</Project>

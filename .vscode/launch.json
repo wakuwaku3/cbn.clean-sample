@@ -9,9 +9,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-subscriber",
-      "program": "${workspaceFolder}/Cbn.DDDSample.Subscriber/bin/Debug/netcoreapp2.1/Cbn.DDDSample.Subscriber.dll",
+      "program": "${workspaceFolder}/Cbn.CleanSample.Subscriber/bin/Debug/netcoreapp2.1/Cbn.CleanSample.Subscriber.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Cbn.DDDSample.Subscriber",
+      "cwd": "${workspaceFolder}/Cbn.CleanSample.Subscriber",
       "stopAtEntry": false,
       "console": "internalConsole"
     },
@@ -20,9 +20,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-cli",
-      "program": "${workspaceFolder}/Cbn.DDDSample.Cli/bin/Debug/netcoreapp2.1/Cbn.DDDSample.Cli.dll",
+      "program": "${workspaceFolder}/Cbn.CleanSample.Cli/bin/Debug/netcoreapp2.1/Cbn.CleanSample.Cli.dll",
       "args": ["migration"],
-      "cwd": "${workspaceFolder}/Cbn.DDDSample.Cli",
+      "cwd": "${workspaceFolder}/Cbn.CleanSample.Cli",
       "stopAtEntry": false,
       "console": "internalConsole"
     },
@@ -31,9 +31,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-web",
-      "program": "${workspaceFolder}/Cbn.DDDSample.Web/bin/Debug/netcoreapp2.1/Cbn.DDDSample.Web.dll",
+      "program": "${workspaceFolder}/Cbn.CleanSample.Web/bin/Debug/netcoreapp2.1/Cbn.CleanSample.Web.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Cbn.DDDSample.Web",
+      "cwd": "${workspaceFolder}/Cbn.CleanSample.Web",
       "stopAtEntry": false,
       "internalConsoleOptions": "openOnSessionStart",
       "launchBrowser": {
@@ -54,7 +54,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Cbn.DDDSample.Web/Views"
+        "/Views": "${workspaceFolder}/Cbn.CleanSample.Web/Views"
       }
     },
     {

@@ -24,11 +24,11 @@
   "prettier.singleQuote": true,
   "prettier.disableLanguages": ["jchannon.csharpextensions"],
   "csproj.excludeRegex": "*.cs",
-"cSpell.words": [
+  "cSpell.words": [
     "Autofac",
     "CQRS",
     "Hmac",
-    "IDDD",
+    "IClean",
     "Includable",
     "Npgsql",
     "Protobuf",
@@ -36,5 +36,5 @@
     "msgs",
     "nuget",
     "postgres"
-]
+  ]
 }

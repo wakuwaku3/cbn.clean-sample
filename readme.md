@@ -1,4 +1,4 @@
-# cbn.ddd-sample
+# cbn.clean-sample
 
 .Net Core によるアプリケーションに、ドメイン駆動設計(DDD)の考え方を取り入れた実装例
 

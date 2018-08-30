@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Cbn.CleanSample.Domain.Common\Cbn.CleanSample.Domain.Common.csproj" />
+    </ItemGroup>
+
+</Project>
