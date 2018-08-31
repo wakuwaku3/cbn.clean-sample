@@ -11,27 +11,27 @@ namespace Cbn.CleanSample.UseCases.Account
 {
     internal class AccountUseCase : IAccountUseCase
     {
-        private Lazy<IDbContext> dbContextLazy;
+        private Lazy<IDbTransactionManager> dbTransationManagerLazy;
         private IMapper mapper;
         private ICreateUserCommand createUserCommand;
         private ICreateTokenCommand createTokenCommand;
         private IUserQuery userQuery;
 
         public AccountUseCase(
-            Lazy<IDbContext> dbContextLazy,
+            Lazy<IDbTransactionManager> dbTransationManagerLazy,
             IMapper mapper,
             ICreateUserCommand createUserCommand,
             ICreateTokenCommand createTokenCommand,
             IUserQuery userQuery)
         {
-            this.dbContextLazy = dbContextLazy;
+            this.dbTransationManagerLazy = dbTransationManagerLazy;
             this.mapper = mapper;
             this.createUserCommand = createUserCommand;
             this.createTokenCommand = createTokenCommand;
             this.userQuery = userQuery;
         }
 
-        private IDbContext DbContext => this.dbContextLazy.Value;
+        private IDbTransactionManager DbTransationManager => this.dbTransationManagerLazy.Value;
 
         public async Task<string> SignUpAsync(SignUpArgs args)
         {
@@ -42,15 +42,14 @@ namespace Cbn.CleanSample.UseCases.Account
 
             async Task<UserClaim> ExecuteAsync()
             {
-                var trn = await this.DbContext.BeginTransactionAsync();
+                var trn = await this.DbTransationManager.BeginTransactionAsync();
                 try
                 {
                     var res = await this.createUserCommand.ExecuteAsync(creationInfo);
-                    await this.DbContext.SaveChangesAsync();
                     trn.Commit();
                     return res;
                 }
-                catch (System.Exception)
+                catch (Exception)
                 {
                     trn.Rollback();
                     throw;
