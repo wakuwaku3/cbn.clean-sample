@@ -5,16 +5,16 @@ using Cbn.CleanSample.Domain.Common.Configuration;
 using Cbn.CleanSample.UseCases;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
+using Cbn.Infrastructure.CleanSampleData;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
-using Cbn.Infrastructure.CleanSampleData;
 using Cbn.Infrastructure.JsonWebToken;
-using Cbn.Infrastructure.Messaging;
 using Cbn.Infrastructure.Npgsql.Entity.Migration;
+using Cbn.Infrastructure.PubSub;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

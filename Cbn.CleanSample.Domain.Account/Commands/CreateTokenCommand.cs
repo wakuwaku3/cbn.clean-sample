@@ -6,7 +6,7 @@ using Cbn.Infrastructure.Common.Foundation.Interfaces;
 
 namespace Cbn.CleanSample.Domain.Account.Commands
 {
-    public class CreateTokenCommand : ICreateTokenCommand
+    internal class CreateTokenCommand : ICreateTokenCommand
     {
         private IJwtFactory jwtFactory;
         private IMapper mapper;

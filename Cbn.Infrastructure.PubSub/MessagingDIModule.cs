@@ -1,7 +1,7 @@
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 
-namespace Cbn.Infrastructure.Messaging
+namespace Cbn.Infrastructure.PubSub
 {
     public class MessagingDIModule : IDIModule
     {

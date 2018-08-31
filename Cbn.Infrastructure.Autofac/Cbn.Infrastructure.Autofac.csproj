@@ -7,8 +7,8 @@
     <ProjectReference Include="..\Cbn.Infrastructure.Common\Cbn.Infrastructure.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.8.1" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
+    <PackageReference Include="Autofac" Version="4.8.1" PrivateAssets="All"/>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" PrivateAssets="All"/>
   </ItemGroup>
 
 </Project>

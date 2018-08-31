@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
-using Cbn.Infrastructure.Messaging.Extensions;
+using Cbn.Infrastructure.PubSub.Extensions;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Newtonsoft.Json;
 
-namespace Cbn.Infrastructure.Messaging
+namespace Cbn.Infrastructure.PubSub
 {
     public class Publisher : IPublisher
     {

@@ -6,13 +6,13 @@ using Cbn.CleanSample.Domain.Account.Interfaces.Repositories;
 using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.CleanSample.Domain.Common.Constants;
 using Cbn.CleanSample.Domain.Common.Models;
+using Cbn.CleanSample.UseCases.Account;
 using Cbn.CleanSample.UseCases.Interfaces.Queries;
-using Cbn.CleanSample.UseCases.Models.Account;
+using Cbn.Infrastructure.CleanSampleData.Entities;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.Cryptography.Interfaces;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
-using Cbn.Infrastructure.CleanSampleData.Entities;
 using Cbn.Infrastructure.Npgsql.Entity.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,7 +69,7 @@ namespace Cbn.Infrastructure.CleanSampleData.Repositories
             return this.mapper.Map<UserClaim>(user);
         }
 
-        public async Task<UserClaim> GetSignInUserClaimAsync(SignInArgs args)
+        public async Task<UserClaim> GetSignInUserClaimAsync(SignInRequest args)
         {
             var user = await this.GetAsync(args.Email, args.Password);
             return this.mapper.Map<UserClaim>(user);

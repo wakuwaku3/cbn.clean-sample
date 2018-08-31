@@ -2,20 +2,19 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Cbn.CleanSample.UseCases.Interfaces.Services;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Exceptions;
 using Cbn.Infrastructure.Common.IO.Interfaces;
 
-namespace Cbn.CleanSample.UseCases.Services
+namespace Cbn.CleanSample.UseCases.Migration
 {
-    public class MigrationService : IMigrationService
+    internal class MigrationUseCase : IMigrationUseCase
     {
         private IPathResolver pathResolver;
         private IScopeProvider scopeProvider;
 
-        public MigrationService(
+        public MigrationUseCase(
             IPathResolver pathResolver,
             IScopeProvider scopeProvider)
         {

@@ -1,8 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cbn.CleanSample.UseCases.Interfaces.Services;
-using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
+using Cbn.CleanSample.UseCases.Migration;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
@@ -15,14 +14,14 @@ namespace Cbn.CleanSample.Subscriber.Configuration
         private CommandLineApplication application;
         private ILogger logger;
         private ISubscriber subscriber;
-        private IMigrationService migrationService;
+        private IMigrationUseCase migrationService;
 
         public SubscriberApplication(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
             ILogger logger,
             ISubscriber subscriber,
-            IMigrationService migrationService)
+            IMigrationUseCase migrationService)
         {
             this.application = application;
             this.cancellationTokenSource = cancellationTokenSource;

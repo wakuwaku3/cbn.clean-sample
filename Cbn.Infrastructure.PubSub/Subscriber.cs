@@ -7,12 +7,12 @@ using Cbn.Infrastructure.Common.DependencyInjection.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.Common.ValueObjects;
-using Cbn.Infrastructure.Messaging.Extensions;
+using Cbn.Infrastructure.PubSub.Extensions;
 using Google.Cloud.PubSub.V1;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Cbn.Infrastructure.Messaging
+namespace Cbn.Infrastructure.PubSub
 {
     public class Subscriber : ISubscriber
     {

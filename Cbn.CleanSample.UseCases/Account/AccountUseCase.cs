@@ -4,14 +4,12 @@ using Cbn.CleanSample.Domain.Account.Interfaces.Command;
 using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.CleanSample.Domain.Common.Models;
 using Cbn.CleanSample.UseCases.Interfaces.Queries;
-using Cbn.CleanSample.UseCases.Interfaces.Services;
-using Cbn.CleanSample.UseCases.Models.Account;
 using Cbn.Infrastructure.Common.Data.Entity.Interfaces;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 
-namespace Cbn.CleanSample.UseCases.Services
+namespace Cbn.CleanSample.UseCases.Account
 {
-    public class AccountService : IAccountService
+    internal class AccountUseCase : IAccountUseCase
     {
         private Lazy<IDbContext> dbContextLazy;
         private IMapper mapper;
@@ -19,7 +17,7 @@ namespace Cbn.CleanSample.UseCases.Services
         private ICreateTokenCommand createTokenCommand;
         private IUserQuery userQuery;
 
-        public AccountService(
+        public AccountUseCase(
             Lazy<IDbContext> dbContextLazy,
             IMapper mapper,
             ICreateUserCommand createUserCommand,
@@ -64,7 +62,7 @@ namespace Cbn.CleanSample.UseCases.Services
             }
         }
 
-        public async Task<string> SignInAsync(SignInArgs args)
+        public async Task<string> SignInAsync(SignInRequest args)
         {
             var userClaim = await this.userQuery.GetSignInUserClaimAsync(args);
             return await this.createTokenCommand.ExecuteAsync(userClaim);

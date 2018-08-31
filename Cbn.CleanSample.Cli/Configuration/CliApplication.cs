@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Cbn.CleanSample.UseCases.Interfaces.Services;
+using Cbn.CleanSample.UseCases.Migration;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
@@ -12,13 +12,13 @@ namespace Cbn.CleanSample.Cli.Configuration
         private CancellationTokenSource cancellationTokenSource;
         private CommandLineApplication application;
         private ILogger logger;
-        private IMigrationService migrationService;
+        private IMigrationUseCase migrationService;
 
         public CliApplication(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
             ILogger logger,
-            IMigrationService migrationService)
+            IMigrationUseCase migrationService)
         {
             this.application = application;
             this.cancellationTokenSource = cancellationTokenSource;

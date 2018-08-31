@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.CleanSample.Domain.Common.Models;
-using Cbn.CleanSample.UseCases.Interfaces.Services;
+using Cbn.CleanSample.UseCases.Migration;
 using Cbn.Infrastructure.AspNetCore.Extensions;
 using Cbn.Infrastructure.AspNetCore.Middlewares.Extensions;
 using Cbn.Infrastructure.Autofac.Builder;
@@ -63,7 +62,7 @@ namespace Cbn.CleanSample.Web.Configuration
             builder.Populate(services);
             builder.RegisterModule(new CleanSampleWebDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
             var scope = builder.Build();
-            var migrationService = scope.Resolve<IMigrationService>();
+            var migrationService = scope.Resolve<IMigrationUseCase>();
             migrationService.ExecuteAsync().Wait();
             return builder.CreateServiceProvider();
         }

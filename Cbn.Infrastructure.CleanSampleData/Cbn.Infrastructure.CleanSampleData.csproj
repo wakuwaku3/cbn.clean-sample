@@ -5,8 +5,7 @@
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Cbn.CleanSample.UseCases\Cbn.CleanSample.UseCases.csproj" />
-        <ProjectReference Include="..\Cbn.CleanSample.Domain.Account\Cbn.CleanSample.Domain.Account.csproj" />
-        <ProjectReference Include="..\Cbn.Infrastructure.Npgsql.Entity\Cbn.Infrastructure.Npgsql.Entity.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.Npgsql.Entity\Cbn.Infrastructure.Npgsql.Entity.csproj" PrivateAssets="All"/>
     </ItemGroup>
 
 </Project>

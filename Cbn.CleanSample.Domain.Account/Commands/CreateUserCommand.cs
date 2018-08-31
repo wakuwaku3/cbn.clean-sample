@@ -8,7 +8,7 @@ using Cbn.Infrastructure.Common.Messaging.Interfaces;
 
 namespace Cbn.CleanSample.Domain.Account.Commands
 {
-    public class CreateUserCommand : ICreateUserCommand
+    internal class CreateUserCommand : ICreateUserCommand
     {
         private IUserRepository userRepository;
         private IMapper mapper;

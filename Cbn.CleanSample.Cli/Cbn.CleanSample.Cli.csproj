@@ -11,8 +11,9 @@
         <ProjectReference Include="..\Cbn.CleanSample.UseCases\Cbn.CleanSample.UseCases.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.CleanSampleData\Cbn.Infrastructure.CleanSampleData.csproj" />
-        <ProjectReference Include="..\Cbn.Infrastructure.Messaging\Cbn.Infrastructure.Messaging.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.PubSub\Cbn.Infrastructure.PubSub.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.JsonWebToken\Cbn.Infrastructure.JsonWebToken.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.Npgsql.Entity\Cbn.Infrastructure.Npgsql.Entity.csproj"/>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />

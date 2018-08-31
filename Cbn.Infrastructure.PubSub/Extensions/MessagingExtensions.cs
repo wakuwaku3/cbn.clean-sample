@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Google.Cloud.PubSub.V1;
 
-namespace Cbn.Infrastructure.Messaging.Extensions
+namespace Cbn.Infrastructure.PubSub.Extensions
 {
     public static class MessagingExtensions
     {

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Cbn.CleanSample.UseCases.Models.Account
+namespace Cbn.CleanSample.UseCases.Account
 {
     public class SignUpArgs
     {

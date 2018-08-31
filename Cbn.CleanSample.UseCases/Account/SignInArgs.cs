@@ -1,6 +1,6 @@
-namespace Cbn.CleanSample.UseCases.Models.Account
+namespace Cbn.CleanSample.UseCases.Account
 {
-    public class SignInArgs
+    public class SignInRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }
