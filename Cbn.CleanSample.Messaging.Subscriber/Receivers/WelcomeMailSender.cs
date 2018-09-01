@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 
-namespace Cbn.CleanSample.Messaging.Receiver.Receivers
+namespace Cbn.CleanSample.Messaging.Subscriber.Receivers
 {
     public class WelcomeMailSender : IMessageReceiver<WelcomeMailArgs>
     {

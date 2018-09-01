@@ -6,7 +6,7 @@ using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
-namespace Cbn.CleanSample.Messaging.Receiver.Configuration
+namespace Cbn.CleanSample.Messaging.Subscriber.Configuration
 {
     public class SubscriberApplication
     {

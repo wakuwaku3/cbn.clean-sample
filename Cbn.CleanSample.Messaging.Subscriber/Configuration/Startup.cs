@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
-using Cbn.CleanSample.Messaging.Receiver.Configuration;
+using Cbn.CleanSample.Messaging.Subscriber.Configuration;
 using Cbn.Infrastructure.Autofac.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -31,6 +31,7 @@ namespace Cbn.CleanSample.Cli.Configuration
                 .SetBasePath(rootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
                 .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional : true)
+                .AddJsonFile($"appsettings.user.json", optional : true)
                 .AddUserSecrets(this.executeAssembly)
                 .AddEnvironmentVariables()
                 .AddCommandLine(this.args);
