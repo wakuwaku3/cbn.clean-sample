@@ -43,6 +43,7 @@ namespace Cbn.CleanSample.Web.Configuration
                 .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
                 .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", optional : true)
+                .AddJsonFile($"appsettings.user.json", optional : true)
                 .AddEnvironmentVariables();
             if (hostingEnvironment.IsDevelopment())
             {

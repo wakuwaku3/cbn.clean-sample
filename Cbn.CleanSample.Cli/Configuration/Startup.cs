@@ -30,6 +30,7 @@ namespace Cbn.CleanSample.Cli.Configuration
                 .SetBasePath(rootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
                 .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional : true)
+                .AddJsonFile($"appsettings.user.json", optional : true)
                 .AddUserSecrets(this.executeAssembly)
                 .AddEnvironmentVariables()
                 .AddCommandLine(this.args);

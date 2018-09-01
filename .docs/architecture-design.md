@@ -25,7 +25,7 @@
   外界との接続や、外界とドメインモデル間のデータ変換をする場所。エントリーポイントを含む。
   - Cbn.CleanSample.Cli  
     Command Line Interface
-  - Cbn.CleanSample.Messaging.Receiver  
+  - Cbn.CleanSample.Messaging.Subscriber  
     Messaging queue の受け取り
   - Cbn.CleanSample.Web  
     WebApi

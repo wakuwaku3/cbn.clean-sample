@@ -9,6 +9,7 @@ Clean Architecture を参考に作った .Net Core によるアプリケーシ�
 
 #### Options
 
+- vscode
 - Docker で Database を作成する場合
   - docker
   - docker-compose
@@ -39,6 +40,10 @@ Clean Architecture を参考に作った .Net Core によるアプリケーシ�
 #### Messaging Subscriber を実行
 
 `npm run subscriber`
+
+#### Debug
+
+vscode でデバッグ実行可能
 
 ## Documents
 
