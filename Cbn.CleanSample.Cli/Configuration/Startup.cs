@@ -29,7 +29,6 @@ namespace Cbn.CleanSample.Cli.Configuration
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(rootPath)
                 .AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
-                .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional : true)
                 .AddJsonFile($"appsettings.user.json", optional : true)
                 .AddUserSecrets(this.executeAssembly)
                 .AddEnvironmentVariables()
