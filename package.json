@@ -8,8 +8,8 @@
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-dotnet-cli": "^0.8.0",
-    "gulp-zip": "^4.1.0",
+    "gulp-dotnet-cli": "^1.1.0",
+    "gulp-zip": "^4.2.0",
     "path": "^0.12.7",
     "run-sequence": "^2.2.1"
   },
