@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Cbn.Infrastructure.Common.Messaging.Interfaces
 {
-    public interface ISubscriber
+    public interface IMessageSubscriber
     {
         Task SubscribeAsync();
     }

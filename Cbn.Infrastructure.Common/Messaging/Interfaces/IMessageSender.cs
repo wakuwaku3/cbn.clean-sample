@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace Cbn.Infrastructure.Common.Messaging.Interfaces
 {
-    public interface IPublisher
+    public interface IMessageSender
     {
-        Task<string> PublishAsync<T>(T message) where T : class;
+        Task<string> SendAsync<T>(T message) where T : class;
     }
 }

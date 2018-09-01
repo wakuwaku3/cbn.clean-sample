@@ -1,6 +1,6 @@
 ﻿using Cbn.CleanSample.Cli.Configuration;
 
-namespace Cbn.CleanSample.Subscriber
+namespace Cbn.CleanSample.Messaging.Receiver
 {
     class Program
     {

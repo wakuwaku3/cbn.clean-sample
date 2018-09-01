@@ -7,8 +7,8 @@ namespace Cbn.Infrastructure.PubSub
     {
         public void DefineModule(IDIBuilder builder)
         {
-            builder.RegisterType<Publisher>(x => x.As<IPublisher>().SingleInstance());
-            builder.RegisterType<Subscriber>(x => x.As<ISubscriber>().SingleInstance());
+            builder.RegisterType<MessageSender>(x => x.As<IMessageSender>().SingleInstance());
+            builder.RegisterType<Subscriber>(x => x.As<IMessageSubscriber>().SingleInstance());
         }
     }
 }

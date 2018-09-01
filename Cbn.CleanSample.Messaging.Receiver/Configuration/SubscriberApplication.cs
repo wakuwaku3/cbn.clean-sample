@@ -6,21 +6,21 @@ using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
-namespace Cbn.CleanSample.Subscriber.Configuration
+namespace Cbn.CleanSample.Messaging.Receiver.Configuration
 {
     public class SubscriberApplication
     {
         private CancellationTokenSource cancellationTokenSource;
         private CommandLineApplication application;
         private ILogger logger;
-        private ISubscriber subscriber;
+        private IMessageSubscriber subscriber;
         private IMigrationUseCase migrationService;
 
         public SubscriberApplication(
             CommandLineApplication application,
             CancellationTokenSource cancellationTokenSource,
             ILogger logger,
-            ISubscriber subscriber,
+            IMessageSubscriber subscriber,
             IMigrationUseCase migrationService)
         {
             this.application = application;

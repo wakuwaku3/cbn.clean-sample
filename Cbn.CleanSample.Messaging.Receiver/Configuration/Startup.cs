@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
-using Cbn.CleanSample.Subscriber.Configuration;
+using Cbn.CleanSample.Messaging.Receiver.Configuration;
 using Cbn.Infrastructure.Autofac.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;

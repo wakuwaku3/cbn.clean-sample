@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 
-namespace Cbn.CleanSample.Subscriber.Executers
+namespace Cbn.CleanSample.Messaging.Receiver.Receivers
 {
-    public class WelcomeMailSender : IExecuter<WelcomeMailArgs>
+    public class WelcomeMailSender : IMessageReceiver<WelcomeMailArgs>
     {
         public WelcomeMailSender(WelcomeMailArgs parameter)
         {

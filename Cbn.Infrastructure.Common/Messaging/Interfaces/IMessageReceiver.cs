@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 
 namespace Cbn.Infrastructure.Common.Messaging.Interfaces
 {
-    public interface IExecuter
+    public interface IMessageReceiver
     {
         Task<int> ExecuteAsync();
     }
-    public interface IExecuter<T> : IExecuter where T : class
+    public interface IMessageReceiver<T> : IMessageReceiver where T : class
     {
         T Parameter { get; }
     }

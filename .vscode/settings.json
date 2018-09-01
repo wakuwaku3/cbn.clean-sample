@@ -38,6 +38,9 @@
         "classname",
         "msgs",
         "nuget",
-        "postgres"
+        "postgres",
+        "postgresql",
+        "インター",
+        "クリーン"
     ]
 }

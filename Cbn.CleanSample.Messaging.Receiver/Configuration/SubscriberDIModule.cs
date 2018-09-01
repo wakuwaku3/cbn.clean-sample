@@ -4,7 +4,7 @@ using Cbn.CleanSample.Domain.Account;
 using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.CleanSample.Domain.Common;
 using Cbn.CleanSample.Domain.Common.Configuration;
-using Cbn.CleanSample.Subscriber.Executers;
+using Cbn.CleanSample.Messaging.Receiver.Receivers;
 using Cbn.CleanSample.UseCases;
 using Cbn.Infrastructure.Autofac;
 using Cbn.Infrastructure.Autofac.Configuration;
@@ -21,7 +21,7 @@ using Cbn.Infrastructure.PubSub;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Cbn.CleanSample.Subscriber.Configuration
+namespace Cbn.CleanSample.Messaging.Receiver.Configuration
 {
     public class SubscriberDIModule : IDIModule
     {
@@ -59,7 +59,7 @@ namespace Cbn.CleanSample.Subscriber.Configuration
                 .As<IGoogleMessagingConfig>()
                 .SingleInstance());
 
-            builder.RegisterType<WelcomeMailSender>(x => x.As<IExecuter<WelcomeMailArgs>>());
+            builder.RegisterType<WelcomeMailSender>(x => x.As<IMessageReceiver<WelcomeMailArgs>>());
             builder.RegisterType<CancellationTokenSource>(x => x.SingleInstance());
         }
     }

@@ -15,7 +15,7 @@ const spawn = require('child_process').spawn;
 
 const webName = 'Cbn.CleanSample.Web';
 const cliName = 'Cbn.CleanSample.Cli';
-const subscriberName = 'Cbn.CleanSample.Subscriber';
+const subscriberName = 'Cbn.CleanSample.Messaging.Receiver';
 const web = '**/' + webName + '.csproj';
 const cli = '**/' + cliName + '.csproj';
 const subscriber = '**/' + subscriberName + '.csproj';

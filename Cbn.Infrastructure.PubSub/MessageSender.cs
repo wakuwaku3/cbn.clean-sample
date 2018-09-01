@@ -8,18 +8,18 @@ using Newtonsoft.Json;
 
 namespace Cbn.Infrastructure.PubSub
 {
-    public class Publisher : IPublisher
+    public class MessageSender : IMessageSender
     {
         private IGoogleMessagingConfig messagingConfig;
         private Lazy<Task<PublisherClient>> publisherLazy;
 
-        public Publisher(IGoogleMessagingConfig messagingConfig)
+        public MessageSender(IGoogleMessagingConfig messagingConfig)
         {
             this.messagingConfig = messagingConfig;
             this.publisherLazy = new Lazy<Task<PublisherClient>>(() => this.messagingConfig.CreatePublisherClientAsync());
         }
 
-        public async Task<string> PublishAsync<T>(T message) where T : class
+        public async Task<string> SendAsync<T>(T message) where T : class
         {
             var publisher = await this.publisherLazy.Value;
             var psMessage = new PubsubMessage();

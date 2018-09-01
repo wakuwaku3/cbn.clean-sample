@@ -12,16 +12,16 @@ namespace Cbn.CleanSample.Domain.Account.Commands
     {
         private IUserRepository userRepository;
         private IMapper mapper;
-        private IPublisher publisher;
+        private IMessageSender messageSender;
 
         public CreateUserCommand(
             IUserRepository userRepository,
             IMapper mapper,
-            IPublisher publisher)
+            IMessageSender messageSender)
         {
             this.userRepository = userRepository;
             this.mapper = mapper;
-            this.publisher = publisher;
+            this.messageSender = messageSender;
         }
 
         public async Task<UserClaim> ExecuteAsync(UserCreationInfo userCreationInfo)
@@ -33,7 +33,7 @@ namespace Cbn.CleanSample.Domain.Account.Commands
         public async Task SendMailForNewUserAsync(UserClaim claim)
         {
             var mail = this.mapper.Map<WelcomeMailArgs>(claim);
-            await this.publisher.PublishAsync(mail);
+            await this.messageSender.SendAsync(mail);
         }
     }
 }

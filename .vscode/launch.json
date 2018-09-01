@@ -9,9 +9,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-subscriber",
-      "program": "${workspaceFolder}/Cbn.CleanSample.Subscriber/bin/Debug/netcoreapp2.1/Cbn.CleanSample.Subscriber.dll",
+      "program": "${workspaceFolder}/Cbn.CleanSample.Messaging.Receiver/bin/Debug/netcoreapp2.1/Cbn.CleanSample.Messaging.Receiver.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Cbn.CleanSample.Subscriber",
+      "cwd": "${workspaceFolder}/Cbn.CleanSample.Messaging.Receiver",
       "stopAtEntry": false,
       "console": "internalConsole"
     },

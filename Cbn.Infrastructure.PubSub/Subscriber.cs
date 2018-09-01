@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace Cbn.Infrastructure.PubSub
 {
-    public class Subscriber : ISubscriber
+    public class Subscriber : IMessageSubscriber
     {
         private ILogger logger;
         private IGoogleMessagingConfig messagingConfig;
@@ -48,14 +48,14 @@ namespace Cbn.Infrastructure.PubSub
             {
                 var text = Encoding.UTF8.GetString(message.Data.ToArray());
                 var type = this.typeHelper.GetType(x => x.FullName == (message.Attributes[nameof(Type)]));
-                var executerType = typeof(IExecuter<>).MakeGenericType(type);
+                var executerType = typeof(IMessageReceiver<>).MakeGenericType(type);
                 try
                 {
                     var obj = JsonConvert.DeserializeObject(text, type);
                     var pair = new TypeValuePair(obj, type);
                     using(var scope = this.scopeProvider.BeginLifetimeScope())
                     {
-                        var executer = scope.Resolve(executerType, pair) as IExecuter;
+                        var executer = scope.Resolve(executerType, pair) as IMessageReceiver;
                         var res = await executer.ExecuteAsync();
                         return res == 0 ? SubscriberClient.Reply.Ack : SubscriberClient.Reply.Nack;
                     }
