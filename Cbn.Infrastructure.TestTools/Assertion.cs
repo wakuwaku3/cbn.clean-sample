@@ -15,7 +15,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
     {
         private const string DefaultName = "target";
         /// <inheritDoc/>
-        public static void Is(this object expected, object actual, string name = DefaultName)
+        public static void Is(this object actual, object expected, string name = DefaultName)
         {
             var errors = new List<Exception>();
             IsInner(expected, actual, name, new List<object>(), errors);
@@ -25,7 +25,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
             }
         }
         /// <inheritDoc/>
-        public static List<Exception> IsNot(this object expected, object actual, string name = DefaultName)
+        public static List<Exception> IsNot(this object actual, object expected, string name = DefaultName)
         {
             var errors = new List<Exception>();
             IsInner(expected, actual, name, new List<object>(), errors);
@@ -36,7 +36,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
             throw new AssertException($"{name}は同一の内容です。");
         }
 
-        private static bool IsInner(object expected, object actual, string name, List<Exception> errors)
+        private static bool IsInner(object actual, object expected, string name, List<Exception> errors)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
             return false;
         }
 
-        private static void IsInner(object expected, object actual, string name, List<object> verified, List<Exception> errors)
+        private static void IsInner(object actual, object expected, string name, List<object> verified, List<Exception> errors)
         {
             if (CheckNullBoth(expected, actual, name, errors))
             {
@@ -76,7 +76,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
             IsPropertyEqual(expected, actual, name, verified, errors);
         }
 
-        private static void IsPropertyEqual(object expected, object actual, string name, List<object> verified, List<Exception> errors)
+        private static void IsPropertyEqual(object actual, object expected, string name, List<object> verified, List<Exception> errors)
         {
             if (CheckNullBoth(expected, actual, name, errors))
             {
@@ -99,7 +99,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
             }
         }
 
-        private static bool CheckNullBoth(object expected, object actual, string name, List<Exception> errors)
+        private static bool CheckNullBoth(object actual, object expected, string name, List<Exception> errors)
         {
             if (expected == null || actual == null)
             {
