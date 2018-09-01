@@ -5,7 +5,7 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
     <PropertyGroup>
-        <UserSecretsId>cleansample-cli-secret</UserSecretsId>
+        <UserSecretsId>clean-sample-cli-secret</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Cbn.CleanSample.UseCases\Cbn.CleanSample.UseCases.csproj" />

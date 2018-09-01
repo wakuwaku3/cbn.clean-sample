@@ -31,11 +31,8 @@ namespace Cbn.Infrastructure.Autofac.Configuration
             builder.RegisterInstance(this.loggerFactory.GetDefaultLogger(), x => x.As<ILogger>());
             builder.RegisterType<ConfigurationHelper>(x => x.As<IConfigurationHelper>().SingleInstance());
             builder.RegisterInstance(new AssemblyHelper(this.executeAssembly), x => x.As<IAssemblyHelper>());
-            builder.RegisterType<AttributeHelper>(x => x.As<IAttributeHelper>().SingleInstance());
             builder.RegisterType<GuidFactory>(x => x.As<IGuidFactory>().SingleInstance());
             builder.RegisterType<Mapper>(x => x.As<IMapper>().SingleInstance());
-            builder.RegisterType<MemberHelper>(x => x.As<IMemberHelper>().SingleInstance());
-            builder.RegisterType<ReflectionCache>(x => x.As<IReflectionCache>().SingleInstance());
             builder.RegisterType<SystemClock>(x => x.As<ISystemClock>().SingleInstance());
             builder.RegisterType<TypeHelper>(x => x.As<ITypeHelper>().SingleInstance());
             builder.RegisterInstance(new PathResolver(this.rootPath), x => x.As<IPathResolver>());

@@ -1,7 +1,6 @@
 using System.Reflection;
 using Cbn.Infrastructure.Common.Configuration.Interfaces;
-using Cbn.Infrastructure.Common.Foundation;
-using Cbn.Infrastructure.Common.Foundation.Interfaces;
+using Cbn.Infrastructure.Common.Foundation.Extensions;
 using Microsoft.Extensions.Configuration;
 
 namespace Cbn.Infrastructure.Common.Configuration
@@ -21,7 +20,7 @@ namespace Cbn.Infrastructure.Common.Configuration
                 var value = configurationRoot.GetSection(prop.Name)?.Get(prop.PropertyType);
                 if (value != null)
                 {
-                    prop.CreateSetExpression(config, value) (config, value);
+                    config.Set(prop, value);
                 }
             }
         }

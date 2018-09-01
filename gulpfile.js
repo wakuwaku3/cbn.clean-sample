@@ -20,7 +20,10 @@ const web = '**/' + webName + '.csproj';
 const cli = '**/' + cliName + '.csproj';
 const subscriber = '**/' + subscriberName + '.csproj';
 const appEntries = [web, cli, subscriber];
-const testEntries = [];
+const testEntries = [
+  '**/Cbn.Infrastructure.TestTools.csproj',
+  '**/*.Tests.csproj'
+];
 const entries = appEntries.concat(testEntries);
 const dist = 'dist';
 

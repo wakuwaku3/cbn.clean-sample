@@ -1,9 +1,9 @@
 version: '2'
 services:
-  cleansample-postgres:
+  clean-sample-postgres:
     build: ./postgres
-    image: cbn/cleansample-postgres
+    image: cbn/clean-sample-postgres
     ports:
       - '5432:5432'
     volumes:
-      - ~/cleansample/postgresql/data/:/var/lib/postgresql/data:Z
+      - ~/clean-sample/postgresql/data/:/var/lib/postgresql/data:Z

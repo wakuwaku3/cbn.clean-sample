@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cbn.Infrastructure.Common.Foundation.Extensions;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
 
 namespace Cbn.Infrastructure.Common.Foundation
@@ -11,14 +12,6 @@ namespace Cbn.Infrastructure.Common.Foundation
     /// </summary>
     public class Mapper : IMapper
     {
-        private readonly IMemberHelper memberHelper;
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public Mapper(IMemberHelper memberHelper)
-        {
-            this.memberHelper = memberHelper;
-        }
         /// <summary>
         /// プロパティ値をコピーする
         /// </summary>
@@ -74,8 +67,8 @@ namespace Cbn.Infrastructure.Common.Foundation
                 {
                     continue;
                 }
-                var sVal = this.memberHelper.Get(source, sProp);
-                this.memberHelper.Set(destination, dProp, sVal);
+                var sVal = source.Get(sProp);
+                destination.Set(dProp, sVal);
             }
             return destination;
         }

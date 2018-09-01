@@ -4,7 +4,7 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
     <PropertyGroup>
-        <UserSecretsId>cleansample-web-secret</UserSecretsId>
+        <UserSecretsId>clean-sample-web-secret</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Cbn.CleanSample.UseCases\Cbn.CleanSample.UseCases.csproj" />
