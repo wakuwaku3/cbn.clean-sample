@@ -21,6 +21,7 @@ namespace Cbn.CleanSample.Domain.Account.Tests.Commands
             var command = new CreateTokenCommand(mock.Object);
             var actual = await command.ExecuteAsync(userClaim);
             actual.Is(expected);
+            "actual".Is("expected");
         }
     }
 }
