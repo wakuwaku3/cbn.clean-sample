@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Cbn.Infrastructure.TestTools.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Cbn.Infrastructure.TestTools.SelfTests
+namespace Cbn.Infrastructure.TestTools.Tests.Self
 {
     [TestClass]
     public class AssertionTests

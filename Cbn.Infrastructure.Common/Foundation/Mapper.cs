@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Cbn.Infrastructure.Common.Foundation.Extensions;
 using Cbn.Infrastructure.Common.Foundation.Interfaces;
+using Cbn.Infrastructure.Common.ValueObjects;
 
 namespace Cbn.Infrastructure.Common.Foundation
 {
@@ -12,6 +14,15 @@ namespace Cbn.Infrastructure.Common.Foundation
     /// </summary>
     public class Mapper : IMapper
     {
+        private ConcurrentDictionary<MapKey, Action<object, object>> cache = new ConcurrentDictionary<MapKey, Action<object, object>>();
+        private Dictionary<MapKey, Action<object, object>> map = new Dictionary<MapKey, Action<object, object>>();
+        private IMapRegister mapRegister;
+
+        public Mapper(IMapRegister mapRegister = null)
+        {
+            this.mapRegister = mapRegister;
+            this.map = mapRegister?.CreateMap();
+        }
         /// <summary>
         /// プロパティ値をコピーする
         /// </summary>
@@ -52,12 +63,34 @@ namespace Cbn.Infrastructure.Common.Foundation
         /// <param name="source">コピー元のオブジェクト</param>
         /// <param name="destination">コピー先のオブジェクト</param>
         /// <returns>コピー先のオブジェクト</returns>
-        public TDestination Map<TDestination>(object source, TDestination destination)
+        public TDestination Map<TDestination>(object source, TDestination destination) where TDestination : class
         {
-            if (source == null)
+            if (source == null || destination == null)
             {
                 return destination;
             }
+            var sType = source.GetType();
+            var convert = cache.GetOrAdd(new MapKey(sType, typeof(TDestination)), key =>
+            {
+                if (this.map == null)
+                {
+                    return (s, d) => this.MapDefault<TDestination>(s, d as TDestination);
+                }
+                if (this.map.TryGetValue(key, out var action))
+                {
+                    return action;
+                }
+                return this.map
+                    .Where(x => x.Key.IsAssignableFrom(key))
+                    .Select(x => x.Value)
+                    .FirstOrDefault() ?? new Action<object, object>((s, d) => this.MapDefault<TDestination>(s, d as TDestination));
+            });
+            convert(source, destination);
+            return destination;
+        }
+
+        private TDestination MapDefault<TDestination>(object source, TDestination destination) where TDestination : class
+        {
             var sProps = source.GetType().GetProperties();
             var dProps = typeof(TDestination).GetProperties();
             foreach (var sProp in sProps)

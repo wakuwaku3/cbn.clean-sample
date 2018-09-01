@@ -10,6 +10,8 @@ using Cbn.Infrastructure.Common.Data.Configuration.Interfaces;
 using Cbn.Infrastructure.Common.Data.Migration.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder.Interfaces;
+using Cbn.Infrastructure.Common.Foundation;
+using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.JsonWebToken;
 using Cbn.Infrastructure.Npgsql.Entity.Migration;
@@ -40,6 +42,8 @@ namespace Cbn.CleanSample.Web.Configuration
 
         public void DefineModule(IDIBuilder builder)
         {
+            var mapRegister = new MapRegister();
+            builder.RegisterInstance(mapRegister, x => x.As<IMapRegister>());
             builder.RegisterModule(this.commonAutofacModule);
             builder.RegisterModule(new AutofacDIModule());
             builder.RegisterModule(new JwtDIModule());

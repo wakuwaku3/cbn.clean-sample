@@ -32,6 +32,6 @@ namespace Cbn.Infrastructure.Common.Foundation.Interfaces
         /// <param name="source">コピー元のオブジェクト</param>
         /// <param name="destination">コピー先のオブジェクト</param>
         /// <returns>コピー先のオブジェクト</returns>
-        TDestination Map<TDestination>(object source, TDestination destination);
+        TDestination Map<TDestination>(object source, TDestination destination) where TDestination : class;
     }
 }
