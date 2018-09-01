@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Cbn.Infrastructure.TestTools.Tests
 {
     [TestClass]
-    public class MapperTest
+    public class MapperTests
     {
         [TestMethod]
         public void MapTest001()
