@@ -11,9 +11,21 @@ namespace Cbn.Infrastructure.Common.Foundation.Extensions
         private static ConcurrentDictionary<MemberInfo, Func<object, object>> getterCache = new ConcurrentDictionary<MemberInfo, Func<object, object>>();
         private static ConcurrentDictionary<MemberInfo, Action<object, object>> setterCache = new ConcurrentDictionary<MemberInfo, Action<object, object>>();
 
+        public static PropertyInfo GetProperty<T, TProperty>(this T obj, Expression<Func<T, TProperty>> expression)
+        {
+            return typeof(T).GetProperty(((MemberExpression) expression.Body).Member.Name);
+        }
         public static TResult Get<T, TResult>(this T obj, string propertyOrFieldName)
         {
             var memberInfo = GetMemberInfo(typeof(T), propertyOrFieldName);
+            if (memberInfo is PropertyInfo pInfo)
+            {
+                return obj.Get<TResult>(pInfo);
+            }
+            else if (memberInfo is FieldInfo fInfo)
+            {
+                return obj.Get<TResult>(fInfo);
+            }
             return default(TResult);
         }
         public static TResult Get<TResult>(this object obj, PropertyInfo propertyInfo)
@@ -49,15 +61,7 @@ namespace Cbn.Infrastructure.Common.Foundation.Extensions
 
         private static MemberInfo GetMemberInfo(this Type type, string propertyOrFieldName)
         {
-            var memberInfo = type.GetMember(propertyOrFieldName).FirstOrDefault();
-            switch (memberInfo.MemberType)
-            {
-                case MemberTypes.Field:
-                    return type.GetField(propertyOrFieldName);
-                case MemberTypes.Property:
-                    return type.GetProperty(propertyOrFieldName);
-            }
-            return memberInfo;
+            return type.GetProperty(propertyOrFieldName) as MemberInfo ?? type.GetField(propertyOrFieldName);
         }
 
         /// <summary>
