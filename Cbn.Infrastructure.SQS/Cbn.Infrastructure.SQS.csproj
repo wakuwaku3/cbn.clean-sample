@@ -7,8 +7,8 @@
     <ProjectReference Include="..\Cbn.Infrastructure.Common\Cbn.Infrastructure.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.4"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.4"/>
+    <PackageReference Include="AWSSDK.SQS" Version="3.3.3.17" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
 </Project>

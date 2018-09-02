@@ -55,7 +55,7 @@ namespace Cbn.CleanSample.Web.Configuration
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            this.config = new CleanSampleWebConfig(this.configurationRoot, new ConfigurationHelper());
+            this.config = new CleanSampleWebConfig(this.configurationRoot);
             services.AddWebApiService(this.config);
             services.AddMvc().AddControllersAsServices();
 
@@ -64,7 +64,7 @@ namespace Cbn.CleanSample.Web.Configuration
             builder.RegisterModule(new CleanSampleWebDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
             var scope = builder.Build();
             var migrationService = scope.Resolve<IMigrationUseCase>();
-            migrationService.ExecuteAsync().Wait();
+            migrationService.ExecuteAsync().GetAwaiter().GetResult();
             return builder.CreateServiceProvider();
         }
 

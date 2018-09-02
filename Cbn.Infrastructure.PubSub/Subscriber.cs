@@ -17,14 +17,14 @@ namespace Cbn.Infrastructure.PubSub
     public class Subscriber : IMessageSubscriber
     {
         private ILogger logger;
-        private IGoogleMessagingConfig messagingConfig;
+        private IPubSubConfig messagingConfig;
         private IScopeProvider scopeProvider;
         private CancellationTokenSource tokenSource;
         private ITypeHelper typeHelper;
         private Lazy<Task<SubscriberClient>> subscriberLazy;
 
         public Subscriber(
-            IGoogleMessagingConfig messagingConfig,
+            IPubSubConfig messagingConfig,
             IScopeProvider scopeProvider,
             ILogger logger,
             CancellationTokenSource tokenSource,

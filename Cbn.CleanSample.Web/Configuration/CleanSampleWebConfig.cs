@@ -11,7 +11,13 @@ namespace Cbn.CleanSample.Web.Configuration
 {
     public class CleanSampleWebConfig : CleanSampleConfig, IWebConfig
     {
-        public CleanSampleWebConfig(IConfigurationRoot configurationRoot, IConfigurationHelper configurationHelper) : base(configurationRoot, configurationHelper) { }
+        public CleanSampleWebConfig(IConfigurationRoot configurationRoot) : base(configurationRoot)
+        {
+            this.IsEnableCors = this.configurationRoot.GetValue<bool>(nameof(IsEnableCors));
+            this.UseAuthentication = this.configurationRoot.GetValue<bool>(nameof(UseAuthentication));
+            this.IsUseSecure = this.configurationRoot.GetValue<bool>(nameof(IsUseSecure));
+            this.CorsOrigins = this.configurationRoot.GetValue<string>(nameof(CorsOrigins));
+        }
 
         public bool IsEnableCors { get; set; }
         public bool UseAuthentication { get; set; }

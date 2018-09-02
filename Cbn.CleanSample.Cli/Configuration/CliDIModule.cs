@@ -16,7 +16,7 @@ using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.JsonWebToken;
 using Cbn.Infrastructure.Npgsql.Entity.Migration;
-using Cbn.Infrastructure.PubSub;
+using Cbn.Infrastructure.SQS;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -47,7 +47,7 @@ namespace Cbn.CleanSample.Cli.Configuration
             builder.RegisterModule(new AutofacDIModule());
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new CleanSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
-            builder.RegisterModule(new MessagingDIModule());
+            builder.RegisterModule(new SQSDIModule());
             builder.RegisterModule(new CleanSampleDomainCommonDIModule(LifetimeType.Singleton));
             builder.RegisterModule(new DomainAccountDIModule());
             builder.RegisterModule(new UseCasesDIModule());
@@ -57,7 +57,7 @@ namespace Cbn.CleanSample.Cli.Configuration
                 x.As<IDbConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IGoogleMessagingConfig>()
+                .As<ISQSConfig>()
                 .SingleInstance());
         }
     }

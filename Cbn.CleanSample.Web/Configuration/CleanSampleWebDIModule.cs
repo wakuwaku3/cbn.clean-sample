@@ -1,3 +1,4 @@
+using System.Reflection;
 using Cbn.CleanSample.Domain.Account;
 using Cbn.CleanSample.Domain.Common;
 using Cbn.CleanSample.UseCases;
@@ -15,7 +16,7 @@ using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.JsonWebToken;
 using Cbn.Infrastructure.Npgsql.Entity.Migration;
-using Cbn.Infrastructure.PubSub;
+using Cbn.Infrastructure.SQS;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -23,13 +24,13 @@ namespace Cbn.CleanSample.Web.Configuration
 {
     public class CleanSampleWebDIModule : IDIModule
     {
-        private System.Reflection.Assembly executeAssembly;
+        private Assembly executeAssembly;
         private string rootPath;
         private CommonDIModule commonAutofacModule;
         private IConfigurationRoot configurationRoot;
 
         public CleanSampleWebDIModule(
-            System.Reflection.Assembly executeAssembly,
+            Assembly executeAssembly,
             string rootPath,
             IConfigurationRoot configurationRoot,
             ILoggerFactory loggerFactory)
@@ -48,7 +49,7 @@ namespace Cbn.CleanSample.Web.Configuration
             builder.RegisterModule(new AutofacDIModule());
             builder.RegisterModule(new JwtDIModule());
             builder.RegisterModule(new CleanSampleDataDIModule(this.configurationRoot.GetConnectionString("DefaultConnection")));
-            builder.RegisterModule(new MessagingDIModule());
+            builder.RegisterModule(new SQSDIModule());
             builder.RegisterModule(new CleanSampleDomainCommonDIModule(LifetimeType.Scoped));
             builder.RegisterModule(new DomainAccountDIModule());
             builder.RegisterModule(new UseCasesDIModule());
@@ -59,7 +60,7 @@ namespace Cbn.CleanSample.Web.Configuration
                 .As<IWebConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IGoogleMessagingConfig>()
+                .As<ISQSConfig>()
                 .SingleInstance());
         }
     }
