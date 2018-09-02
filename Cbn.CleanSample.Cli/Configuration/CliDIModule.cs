@@ -57,7 +57,7 @@ namespace Cbn.CleanSample.Cli.Configuration
                 x.As<IDbConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IPubSubConfig>()
+                .As<ISQSConfig>()
                 .SingleInstance());
         }
     }

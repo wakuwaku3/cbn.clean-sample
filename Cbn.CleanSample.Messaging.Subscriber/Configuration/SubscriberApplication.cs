@@ -33,7 +33,7 @@ namespace Cbn.CleanSample.Messaging.Subscriber.Configuration
         public int Execute(string[] args)
         {
             this.application.Name = nameof(CleanSample);
-            this.application.Description = "Google Cloud Pub/Sub Subscriber";
+            this.application.Description = "Messaging Subscriber";
             this.application.HelpOption("-h|--help");
 
             this.application.OnExecute(async() =>

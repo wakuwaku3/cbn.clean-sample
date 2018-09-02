@@ -51,26 +51,29 @@ namespace Cbn.Infrastructure.SQS
 
         public async Task SubscribeAsync()
         {
-            var tasks = this.config.SQSQueueSettings.Select(async setting =>
+            var targets = this.config.SQSQueueSettings
+                .Concat(new [] { this.config.DefaultSQSQueueSetting })
+                .ToDictionary(x => x.QueueUrl)
+                .Select(x => x.Value);
+            var tasks = targets.SelectMany(setting =>
             {
-                var queueInfo = await this.GetQueueInfoAsync(setting);
-                var visibilityTimeout = int.Parse(queueInfo.Attributes.Single(x => x.Key == SQSConstans.VisibilityTimeoutKey).Value);
-                return Task.WhenAll(Enumerable.Range(0, setting.InstanceCount).Select(i =>
+                return Enumerable.Range(0, setting.InstanceCount).Select(i =>
                 {
-                    return this.SubscribeAsync(setting, visibilityTimeout);
-                }));
+                    return this.SubscribeAsync(setting);
+                });
             });
 
             await Task.WhenAll(tasks);
         }
 
-        private async Task SubscribeAsync(SQSQueueSetting setting, int visibilityTimeout)
+        private async Task SubscribeAsync(SQSQueueSetting setting)
         {
+            var queueInfo = await this.GetQueueInfoAsync(setting);
             while (!this.tokenSource.Token.IsCancellationRequested)
             {
                 if (setting.DelayType != SQSDelayType.FirstTimeOnly)
                 {
-                    await this.SubscribeWithDelayAsync(setting, visibilityTimeout);
+                    await this.SubscribeWithDelayAsync(setting, queueInfo.VisibilityTimeout);
                     continue;
                 }
 
@@ -82,7 +85,7 @@ namespace Cbn.Infrastructure.SQS
                 var message = receiveMessageResponse.Messages.Single();
                 try
                 {
-                    using(var source = new CancellationTokenSource(visibilityTimeout * 900))
+                    using(var source = new CancellationTokenSource(queueInfo.VisibilityTimeout * 900))
                     {
                         this.logger.LogInformation($"Receive {message.MessageId} at {DateTime.Now}");
                         var result = await this.ExecuteAsync(message, source);

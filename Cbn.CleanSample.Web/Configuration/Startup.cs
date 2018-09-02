@@ -64,7 +64,7 @@ namespace Cbn.CleanSample.Web.Configuration
             builder.RegisterModule(new CleanSampleWebDIModule(this.executeAssembly, this.rootPath, this.configurationRoot, this.loggerFactory));
             var scope = builder.Build();
             var migrationService = scope.Resolve<IMigrationUseCase>();
-            migrationService.ExecuteAsync().Wait();
+            migrationService.ExecuteAsync().GetAwaiter().GetResult();
             return builder.CreateServiceProvider();
         }
 

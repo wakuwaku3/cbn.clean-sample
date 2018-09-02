@@ -16,11 +16,11 @@ namespace Cbn.CleanSample.Domain.Common.Configuration
         {
             this.configurationRoot = configurationRoot;
             this.SqlPoolPath = this.configurationRoot.GetValue<string>(nameof(this.SqlPoolPath));
-            this.JwtSecret = this.configurationRoot.GetValue<string>(nameof(this.SqlPoolPath));
-            this.JwtExpiresDate = this.configurationRoot.GetValue<int>(nameof(this.SqlPoolPath));
-            this.JwtAudience = this.configurationRoot.GetValue<string>(nameof(this.SqlPoolPath));
-            this.JwtIssuer = this.configurationRoot.GetValue<string>(nameof(this.SqlPoolPath));
-            this.Database = this.configurationRoot.GetValue<string>(nameof(this.SqlPoolPath));
+            this.JwtSecret = this.configurationRoot.GetValue<string>(nameof(this.JwtSecret));
+            this.JwtExpiresDate = this.configurationRoot.GetValue<int>(nameof(this.JwtExpiresDate));
+            this.JwtAudience = this.configurationRoot.GetValue<string>(nameof(this.JwtAudience));
+            this.JwtIssuer = this.configurationRoot.GetValue<string>(nameof(this.JwtIssuer));
+            this.Database = this.configurationRoot.GetValue<string>(nameof(this.Database));
             this.AdminConnectionString = this.GetConnectionString("AdminConnection");
             this.SystemDateTime = this.configurationRoot.GetValue<DateTime?>(nameof(this.SystemDateTime));
             this.AwsAccessKeyId = this.configurationRoot.GetValue<string>(nameof(this.AwsAccessKeyId));

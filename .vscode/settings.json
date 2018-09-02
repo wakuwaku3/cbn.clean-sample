@@ -24,7 +24,7 @@
   "prettier.singleQuote": true,
   "prettier.disableLanguages": ["jchannon.csharpextensions"],
   "csproj.excludeRegex": "*.cs",
-  "cSpell.words": [
+"cSpell.words": [
     "Autofac",
     "CQRS",
     "Hmac",
@@ -43,8 +43,9 @@
     "msgs",
     "nuget",
     "postgres",
-    "postgresql"
-  ],
+    "postgresql",
+    "psql"
+],
   "cSpell.ignoreRegExpList": ["/.*ー/"],
   "cSpell.ignorePaths": [
     "**/package-lock.json",

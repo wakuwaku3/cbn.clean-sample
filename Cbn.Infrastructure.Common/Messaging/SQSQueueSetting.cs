@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.Configuration;
 
 namespace Cbn.Infrastructure.Common.Messaging
@@ -11,7 +12,7 @@ namespace Cbn.Infrastructure.Common.Messaging
             this.QueueUrl = configuration.GetValue<string>(nameof(this.QueueUrl));
             this.FirstDelaySeconds = configuration.GetValue(nameof(this.FirstDelaySeconds), 0);
             this.DelayType = configuration.GetValue(nameof(this.DelayType), SQSDelayType.FirstTimeOnly);
-            this.TargetMessageTypes = configuration.GetSection(nameof(this.TargetMessageTypes)).Get<string[]>();
+            this.TargetMessageTypes = configuration.GetSection(nameof(this.TargetMessageTypes)).Get<string[]>() ?? Enumerable.Empty<string>();
             this.InstanceCount = configuration.GetValue(nameof(this.InstanceCount), 1);
         }
         public string QueueUrl { get; }

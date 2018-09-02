@@ -22,23 +22,8 @@ json ファイルは存在しない場合無視される。
   Web のみ指定可能。
 - `appsettings.json`
 
-## パラメータ
+## パラメータにマップするクラス
 
-| キー                                  | 説明                                                                   | Web | Cli | Messaging |
-| ------------------------------------- | ---------------------------------------------------------------------- | --- | --- | --------- |
-| ConnectionStrings:DefaultConnection   | 通常接続用の ConnectionStrings                                         | ○   | ○   | ○         |
-| ConnectionStrings:AdminConnection     | マイグレーションで使う Database 作成可能なユーザーの ConnectionStrings | ○   | ○   | ○         |
-| ConnectionStrings:MigrationConnection | マイグレーションで使う DDL 実行可能なユーザーの ConnectionStrings      | ○   | ○   | ○         |
-| SqlPoolPath                           | Sql ファイルの置き場所                                                 | △   | △   | △         |
-| JwtSecret                             | Jwt 認証の秘密鍵                                                       | ○   | ○   | ○         |
-| JwtExpiresDate                        | Jwt 認証の有効期限                                                     | ○   | △   | △         |
-| JwtAudience                           | Jwt 認証の検証用の項目                                                 | ○   | ○   | ○         |
-| JwtIssuer                             | Jwt 認証の検証用の項目                                                 | ○   | ○   | ○         |
-| Database                              | 通常接続で使う Database                                                | ○   | ○   | ○         |
-| ProjectId                             | Google Cloud Pub/Sub の ProjectId                                      | ○   | ○   | ○         |
-| TopicId                               | Google Cloud Pub/Sub の TopicId                                        | ○   | ○   | ○         |
-| SubscriptionId                        | Google Cloud Pub/Sub の SubscriptionId                                 | ○   | ○   | ○         |
-| IsEnableCors                          | CORS を有効にする場合 true を設定                                      | △   | -   | -         |
-| UseAuthentication                     | 認証 を有効にする場合 true を設定                                      | △   | -   | -         |
-| IsUseSecure                           | SSL 接続 を有効にする場合 true を設定                                  | △   | -   | -         |
-| CorsOrigins                           | CORS のホワイトリストをコンマ区切りで指定                              | △   | -   | -         |
+- [web](../Cbn.CleanSample.Web/Configuration/CleanSampleWebConfig.cs)
+- [cli](../Cbn.CleanSample.Domain.Common/Configuration/CleanSampleConfig.cs)
+- [subscriber](../Cbn.CleanSample.Domain.Common/Configuration/CleanSampleConfig.cs)

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Cbn.CleanSample.Domain.Account;
 using Cbn.CleanSample.Domain.Common;
 using Cbn.CleanSample.UseCases;
@@ -23,13 +24,13 @@ namespace Cbn.CleanSample.Web.Configuration
 {
     public class CleanSampleWebDIModule : IDIModule
     {
-        private System.Reflection.Assembly executeAssembly;
+        private Assembly executeAssembly;
         private string rootPath;
         private CommonDIModule commonAutofacModule;
         private IConfigurationRoot configurationRoot;
 
         public CleanSampleWebDIModule(
-            System.Reflection.Assembly executeAssembly,
+            Assembly executeAssembly,
             string rootPath,
             IConfigurationRoot configurationRoot,
             ILoggerFactory loggerFactory)
@@ -59,7 +60,7 @@ namespace Cbn.CleanSample.Web.Configuration
                 .As<IWebConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IPubSubConfig>()
+                .As<ISQSConfig>()
                 .SingleInstance());
         }
     }

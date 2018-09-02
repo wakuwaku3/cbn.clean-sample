@@ -60,7 +60,7 @@ namespace Cbn.CleanSample.Messaging.Subscriber.Configuration
                 x.As<IDbConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IPubSubConfig>()
+                .As<ISQSConfig>()
                 .SingleInstance());
 
             builder.RegisterType<WelcomeMailSender>(x => x.As<IMessageReceiver<WelcomeMailArgs>>());

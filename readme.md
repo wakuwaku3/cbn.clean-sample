@@ -6,7 +6,8 @@ Clean Architecture を参考に作った .Net Core によるアプリケーシ�
 
 - .Net core 2.1
 - node.js
-- [Google Cloud Pub/Sub](./.docs/pub-sub.md)
+- AWS SQS  
+  [アプリケーション設定](./.docs/appsettings.md)に認証情報を追加する
 
 #### Options
 
@@ -34,6 +35,10 @@ Clean Architecture を参考に作った .Net Core によるアプリケーシ�
 
 `npm run db`
 
+##### Docker 上の postgresql にログインする
+
+`docker exec -ti database_clean-sample-postgres_1 psql -U postgres`
+
 #### WebApi を実行
 
 `npm run web`
@@ -52,4 +57,3 @@ vscode でデバッグ実行可能
 - [規約](./.docs/rules.md)
 - [データ移行](./.docs/db-migration.md)
 - [アプリケーション設定](./.docs/appsettings.md)
-- [Google Cloud Pub/Sub](./.docs/pub-sub.md)
