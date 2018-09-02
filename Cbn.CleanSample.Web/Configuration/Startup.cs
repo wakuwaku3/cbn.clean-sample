@@ -55,7 +55,7 @@ namespace Cbn.CleanSample.Web.Configuration
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            this.config = new CleanSampleWebConfig(this.configurationRoot, new ConfigurationHelper());
+            this.config = new CleanSampleWebConfig(this.configurationRoot);
             services.AddWebApiService(this.config);
             services.AddMvc().AddControllersAsServices();
 

@@ -19,7 +19,7 @@ using Cbn.Infrastructure.Common.Foundation.Interfaces;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
 using Cbn.Infrastructure.JsonWebToken;
 using Cbn.Infrastructure.Npgsql.Entity.Migration;
-using Cbn.Infrastructure.PubSub;
+using Cbn.Infrastructure.SQS;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -53,14 +53,14 @@ namespace Cbn.CleanSample.Messaging.Subscriber.Configuration
             builder.RegisterModule(new CleanSampleDomainCommonDIModule(LifetimeType.Singleton));
             builder.RegisterModule(new DomainAccountDIModule());
             builder.RegisterModule(new UseCasesDIModule());
-            builder.RegisterModule(new MessagingDIModule());
+            builder.RegisterModule(new SQSDIModule());
             builder.RegisterInstance(this.configurationRoot, x => x.As<IConfigurationRoot>());
             builder.RegisterModule(new MigrationDIModule(this.configurationRoot.GetConnectionString("MigrationConnection")));
             builder.RegisterType<CleanSampleConfig>(x =>
                 x.As<IDbConfig>()
                 .As<IJwtConfig>()
                 .As<IMigrationConfig>()
-                .As<IGoogleMessagingConfig>()
+                .As<IPubSubConfig>()
                 .SingleInstance());
 
             builder.RegisterType<WelcomeMailSender>(x => x.As<IMessageReceiver<WelcomeMailArgs>>());

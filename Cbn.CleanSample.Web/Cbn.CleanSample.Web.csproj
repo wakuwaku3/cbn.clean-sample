@@ -11,7 +11,7 @@
         <ProjectReference Include="..\Cbn.Infrastructure.AspNetCore\Cbn.Infrastructure.AspNetCore.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.Autofac\Cbn.Infrastructure.Autofac.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.CleanSampleData\Cbn.Infrastructure.CleanSampleData.csproj" />
-        <ProjectReference Include="..\Cbn.Infrastructure.PubSub\Cbn.Infrastructure.PubSub.csproj" />
+        <ProjectReference Include="..\Cbn.Infrastructure.SQS\Cbn.Infrastructure.SQS.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.JsonWebToken\Cbn.Infrastructure.JsonWebToken.csproj" />
         <ProjectReference Include="..\Cbn.Infrastructure.Npgsql.Entity\Cbn.Infrastructure.Npgsql.Entity.csproj"/>
     </ItemGroup>

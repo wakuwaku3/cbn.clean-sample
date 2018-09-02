@@ -10,10 +10,10 @@ namespace Cbn.Infrastructure.PubSub
 {
     public class MessageSender : IMessageSender
     {
-        private IGoogleMessagingConfig messagingConfig;
+        private IPubSubConfig messagingConfig;
         private Lazy<Task<PublisherClient>> publisherLazy;
 
-        public MessageSender(IGoogleMessagingConfig messagingConfig)
+        public MessageSender(IPubSubConfig messagingConfig)
         {
             this.messagingConfig = messagingConfig;
             this.publisherLazy = new Lazy<Task<PublisherClient>>(() => this.messagingConfig.CreatePublisherClientAsync());
