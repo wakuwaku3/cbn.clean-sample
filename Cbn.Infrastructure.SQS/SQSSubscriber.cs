@@ -73,43 +73,47 @@ namespace Cbn.Infrastructure.SQS
             {
                 if (setting.DelayType != SQSDelayType.FirstTimeOnly)
                 {
-                    await this.SubscribeWithDelayAsync(setting, queueInfo.VisibilityTimeout);
+                    await this.ProcessMessageWithDelayAsync(setting, queueInfo);
                     continue;
                 }
+                await this.ProcessMessageAsync(setting, queueInfo);
+            }
+        }
 
-                var receiveMessageResponse = await this.ReceiveMessageAsync(setting);
-                if ((receiveMessageResponse?.Messages?.Count ?? 0) == 0)
+        private async Task ProcessMessageAsync(SQSQueueSetting setting, GetQueueAttributesResponse queueInfo)
+        {
+            var receiveMessageResponse = await this.ReceiveMessageAsync(setting);
+            if ((receiveMessageResponse?.Messages?.Count ?? 0) == 0)
+            {
+                return;
+            }
+            var message = receiveMessageResponse.Messages.Single();
+            try
+            {
+                using(var source = new CancellationTokenSource(queueInfo.VisibilityTimeout * 900))
                 {
-                    continue;
+                    this.logger.LogInformation($"Receive {message.MessageId} at {DateTime.Now}");
+                    var result = await this.ExecuteAsync(message, source);
+                    if (result != 0)
+                    {
+                        this.logger.LogInformation($"Handling Error {message.MessageId} at {DateTime.Now}(code:{result})");
+                        await this.NoticeFailureAsync(setting, message);
+                        return;
+                    }
+                    await this.DeleteMessageAsync(setting, message);
                 }
-                var message = receiveMessageResponse.Messages.Single();
-                try
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
                 {
-                    using(var source = new CancellationTokenSource(queueInfo.VisibilityTimeout * 900))
-                    {
-                        this.logger.LogInformation($"Receive {message.MessageId} at {DateTime.Now}");
-                        var result = await this.ExecuteAsync(message, source);
-                        if (result != 0)
-                        {
-                            this.logger.LogInformation($"Handling Error {message.MessageId} at {DateTime.Now}(code:{result})");
-                            await this.NoticeFailureAsync(setting, message);
-                            continue;
-                        }
-                        await this.DeleteMessageAsync(setting, message);
-                    }
+                    this.logger.LogError($"Time out {message.MessageId} at {DateTime.Now}");
                 }
-                catch (Exception ex)
+                else
                 {
-                    if (ex is OperationCanceledException)
-                    {
-                        this.logger.LogError($"Time out {message.MessageId} at {DateTime.Now}");
-                    }
-                    else
-                    {
-                        this.logger.LogError(ex, $"Error {message.MessageId} at {DateTime.Now}");
-                    }
-                    await this.NoticeFailureAsync(setting, message);
+                    this.logger.LogError(ex, $"Error {message.MessageId} at {DateTime.Now}");
                 }
+                await this.NoticeFailureAsync(setting, message);
             }
         }
 
@@ -165,7 +169,7 @@ namespace Cbn.Infrastructure.SQS
             }
         }
 
-        private async Task SubscribeWithDelayAsync(SQSQueueSetting setting, int visibilityTimeout)
+        private async Task ProcessMessageWithDelayAsync(SQSQueueSetting setting, GetQueueAttributesResponse queueInfo)
         {
             var receiveMessageResponse = await this.ReceiveMessageAsync(setting);
             if ((receiveMessageResponse?.Messages?.Count ?? 0) == 0)
@@ -175,7 +179,7 @@ namespace Cbn.Infrastructure.SQS
             var message = receiveMessageResponse.Messages.Single();
             try
             {
-                using(var source = new CancellationTokenSource(visibilityTimeout * 900))
+                using(var source = new CancellationTokenSource(queueInfo.VisibilityTimeout * 900))
                 {
                     this.logger.LogInformation($"Receive {message.MessageId} at {DateTime.Now}");
                     var result = await this.ExecuteAsync(message, source);

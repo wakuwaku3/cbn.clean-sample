@@ -46,5 +46,4 @@ namespace Cbn.Infrastructure.SQS
             return sendMessageResponse.MessageId;
         }
     }
-
 }

@@ -14,11 +14,15 @@ namespace Cbn.Infrastructure.Common.Messaging
             this.DelayType = configuration.GetValue(nameof(this.DelayType), SQSDelayType.FirstTimeOnly);
             this.TargetMessageTypes = configuration.GetSection(nameof(this.TargetMessageTypes)).Get<string[]>() ?? Enumerable.Empty<string>();
             this.InstanceCount = configuration.GetValue(nameof(this.InstanceCount), 1);
+            this.MaxReceiveCount = configuration.GetValue<int>(nameof(this.MaxReceiveCount));
+            this.DeadLetterQueueUrl = configuration.GetValue<string>(nameof(this.DeadLetterQueueUrl));
         }
         public string QueueUrl { get; }
         public int InstanceCount { get; }
         public int FirstDelaySeconds { get; }
         public SQSDelayType DelayType { get; }
         public IEnumerable<string> TargetMessageTypes { get; }
+        public int MaxReceiveCount { get; set; }
+        public string DeadLetterQueueUrl { get; set; }
     }
 }
