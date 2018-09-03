@@ -1,3 +1,4 @@
+using System.Threading;
 using Cbn.CleanSample.Domain.Common.Models;
 using Cbn.Infrastructure.Common.Claims.Interfaces;
 using Cbn.Infrastructure.Common.DependencyInjection.Builder;
@@ -16,6 +17,7 @@ namespace Cbn.CleanSample.Domain.Common
         public void DefineModule(IDIBuilder builder)
         {
             builder.RegisterType<UserClaimContext>(x => x.As<IClaimContext<UserClaim>>().LifetimeType = this.claimContextLifetimeType);
+            builder.RegisterType<CancellationTokenSource>(x => x.SingleInstance());
         }
     }
 }
