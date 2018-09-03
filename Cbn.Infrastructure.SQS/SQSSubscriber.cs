@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Cbn.Infrastructure.SQS
 {
-    public class SQSSubscriber : IMessageSubscriber
+    public class SQSSubscriber : IMessageSubscriber, IDisposable
     {
         private ISQSConfig config;
         private ISystemClock clock;
@@ -26,6 +26,7 @@ namespace Cbn.Infrastructure.SQS
         private CancellationTokenSource tokenSource;
         private ITypeHelper typeHelper;
         private IScopeProvider scopeProvider;
+        private SemaphoreSlim semaphoreSlim;
 
         public SQSSubscriber(
             ISQSConfig config,
@@ -45,6 +46,7 @@ namespace Cbn.Infrastructure.SQS
             this.tokenSource = tokenSource;
             this.typeHelper = typeHelper;
             this.scopeProvider = scopeProvider;
+            this.semaphoreSlim = config.MaxConcurrencyReceive > 0 ? new SemaphoreSlim(config.MaxConcurrencyReceive) : null;
         }
 
         private IAmazonSQS SQSClient => this.sqsClientProvider.SQSClient;
@@ -71,12 +73,16 @@ namespace Cbn.Infrastructure.SQS
             var queueInfo = await this.GetQueueInfoAsync(setting);
             while (!this.tokenSource.Token.IsCancellationRequested)
             {
+                await this.semaphoreSlim?.WaitAsync();
                 if (setting.DelayType != SQSDelayType.FirstTimeOnly)
                 {
                     await this.ProcessMessageWithDelayAsync(setting, queueInfo);
-                    continue;
                 }
-                await this.ProcessMessageAsync(setting, queueInfo);
+                else
+                {
+                    await this.ProcessMessageAsync(setting, queueInfo);
+                }
+                this.semaphoreSlim?.Release();
             }
         }
 
@@ -243,5 +249,24 @@ namespace Cbn.Infrastructure.SQS
 
             return await this.SQSClient.ReceiveMessageAsync(receiveMessageRequest);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposedValue)
+            {
+                if (disposing)
+                {
+                    this.semaphoreSlim?.Dispose();
+                }
+                this.disposedValue = true;
+            }
+        }
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+        #endregion
     }
 }

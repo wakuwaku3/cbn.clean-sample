@@ -29,6 +29,7 @@ namespace Cbn.CleanSample.Domain.Common.Configuration
             this.DefaultSQSQueueSetting = new SQSQueueSetting(this.configurationRoot.GetSection(nameof(this.DefaultSQSQueueSetting)));
             this.SQSQueueSettings = this.configurationRoot.GetSection(nameof(this.SQSQueueSettings)).GetChildren().Select(x => new SQSQueueSetting(x)).ToArray();
             this.SQSQueueSettingDictionary = this.SQSQueueSettings.SelectMany(x => x.TargetMessageTypes.Select(y => new { key = y, value = x })).ToDictionary(x => x.key, x => x.value);
+            this.MaxConcurrencyReceive = this.configurationRoot.GetValue<int>(nameof(this.MaxConcurrencyReceive));
         }
         public string SqlPoolPath { get; }
         public string JwtSecret { get; }
@@ -44,6 +45,8 @@ namespace Cbn.CleanSample.Domain.Common.Configuration
         public SQSQueueSetting DefaultSQSQueueSetting { get; }
         public IEnumerable<SQSQueueSetting> SQSQueueSettings { get; }
         public IDictionary<string, SQSQueueSetting> SQSQueueSettingDictionary { get; }
+
+        public int MaxConcurrencyReceive { get; }
 
         public string GetConnectionString(string name)
         {

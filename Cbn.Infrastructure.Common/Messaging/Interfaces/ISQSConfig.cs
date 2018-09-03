@@ -10,5 +10,6 @@ namespace Cbn.Infrastructure.Common.Messaging.Interfaces
         SQSQueueSetting DefaultSQSQueueSetting { get; }
         IEnumerable<SQSQueueSetting> SQSQueueSettings { get; }
         IDictionary<string, SQSQueueSetting> SQSQueueSettingDictionary { get; }
+        int MaxConcurrencyReceive { get; }
     }
 }
