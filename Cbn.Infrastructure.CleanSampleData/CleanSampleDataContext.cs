@@ -1,5 +1,5 @@
-using Cbn.Infrastructure.Common.Data.Interfaces;
 using Cbn.Infrastructure.CleanSampleData.Entities;
+using Cbn.Infrastructure.Common.Data.Interfaces;
 using Cbn.Infrastructure.Npgsql.Entity;
 using Microsoft.EntityFrameworkCore;
 

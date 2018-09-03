@@ -20,7 +20,8 @@ namespace Cbn.Infrastructure.Npgsql.Entity.Migration
                 optionsBuilder.UseNpgsql(this.connectionString);
             }
             builder.RegisterInstance(optionsBuilder.Options);
-            builder.RegisterType<MigrationDbContext>(x => x.As<IMigrationDbContext>().InstancePerLifetimeScope());
+            builder.RegisterType<MigrationDbContext>(x => x.InstancePerLifetimeScope());
+            builder.RegisterType<MigrationDbContextWrapper>(x => x.As<IMigrationDbContext>());
             builder.RegisterType<MigrationRepository>(x => x.As<IMigrationRepository<MigrationHistory>>());
             builder.RegisterType<MigrationHelper>(x => x.As<IMigrationHelper>());
         }

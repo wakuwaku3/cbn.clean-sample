@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cbn.Infrastructure.Npgsql.Entity.Migration
 {
-    public class MigrationDbContext : NpgsqlDbContext, IMigrationDbContext
+    public class MigrationDbContext : NpgsqlDbContext
     {
         public MigrationDbContext(DbContextOptions<MigrationDbContext> options) : base(options) { }
         public DbSet<MigrationHistory> MigrationHistories { get; set; }

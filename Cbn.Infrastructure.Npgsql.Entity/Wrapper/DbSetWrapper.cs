@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cbn.Infrastructure.Npgsql.Entity
 {
-    public class NpgsqlDbSet<TEntity> : IDbSet<TEntity> where TEntity : class
+    public class DbSetWrapper<TEntity> : IDbSet<TEntity> where TEntity : class
     {
         private DbSet<TEntity> dbSet;
 
-        public NpgsqlDbSet(DbSet<TEntity> dbSet)
+        public DbSetWrapper(DbSet<TEntity> dbSet)
         {
             this.dbSet = dbSet;
         }

@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Cbn.Infrastructure.Npgsql.Entity
 {
-    public abstract class NpgsqlDbContext : DbContext, IDbContext
+    public abstract class NpgsqlDbContext : DbContext
     {
         private IDbQueryCache queryPool;
 
@@ -36,7 +36,7 @@ namespace Cbn.Infrastructure.Npgsql.Entity
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             this.PreSaveChanges();
-            return await base.SaveChangesAsync();
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         protected virtual void PreSaveChanges()
@@ -48,63 +48,5 @@ namespace Cbn.Infrastructure.Npgsql.Entity
         }
 
         protected virtual void PreSaveChanges(EntityEntry item) { }
-
-        public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
-        {
-            return new NpgsqlDbSet<TEntity>(base.Set<TEntity>());
-        }
-
-        public async Task<IDbTransaction> BeginTransactionAsync()
-        {
-            return (await this.Database.BeginTransactionAsync())?.GetDbTransaction();
-        }
-
-        public async Task<int> ExecuteAsync(IDbQuery query)
-        {
-            var connection = this.GetDbConnection();
-            var transaction = this.Database.CurrentTransaction?.GetDbTransaction();
-            using(var command = connection.CreateCommand())
-            {
-                command.CommandText = query.ToString();
-                command.Transaction = transaction;
-                return await Task.FromResult(command.ExecuteNonQuery());
-            }
-        }
-
-        public IDbQuery CreateDbQuery(string sql)
-        {
-            return new NpgsqlDbQuery(sql);
-        }
-
-        public IDbQuery CreateDbQueryById(string sqlId = null)
-        {
-            return new NpgsqlDbQuery(this.queryPool.GetSqlById(sqlId));
-        }
-
-        public IDbConnection GetDbConnection()
-        {
-            return this.Database.GetDbConnection();
-        }
-
-        public async Task<IEnumerable<T>> QueryAsync<T>(IDbQuery query)
-        {
-            var connection = this.GetDbConnection();
-            var transaction = this.Database.CurrentTransaction?.GetDbTransaction();
-            return await connection.QueryAsync<T>(query.ToString(), query.GetDapperParameters(), transaction);
-        }
-
-        public async Task<T> QuerySingleOrDefaultAsync<T>(IDbQuery query)
-        {
-            var connection = this.GetDbConnection();
-            var transaction = this.Database.CurrentTransaction?.GetDbTransaction();
-            return await connection.QuerySingleOrDefaultAsync<T>(query.ToString(), query.GetDapperParameters(), transaction);
-        }
-
-        public async Task<T> QueryFirstOrDefaultAsync<T>(IDbQuery query)
-        {
-            var connection = this.GetDbConnection();
-            var transaction = this.Database.CurrentTransaction?.GetDbTransaction();
-            return await connection.QueryFirstOrDefaultAsync<T>(query.ToString(), query.GetDapperParameters(), transaction);
-        }
     }
 }
