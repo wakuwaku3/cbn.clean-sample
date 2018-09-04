@@ -73,7 +73,7 @@ namespace Cbn.Infrastructure.SQS
             var queueInfo = await this.GetQueueInfoAsync(setting);
             while (!this.tokenSource.Token.IsCancellationRequested)
             {
-                await this.semaphoreSlim?.WaitAsync();
+                await (this.semaphoreSlim?.WaitAsync() ?? Task.Delay(0));
                 if (setting.DelayType != SQSDelayType.FirstTimeOnly)
                 {
                     await this.ProcessMessageWithDelayAsync(setting, queueInfo);
@@ -216,9 +216,8 @@ namespace Cbn.Infrastructure.SQS
             try
             {
                 var type = this.typeHelper.GetType(x => x.FullName == (message.MessageAttributes[SQSConstans.TypeFullNameKey].StringValue));
-                var obj = JsonConvert.DeserializeObject(message.Body, type);
                 var receiveCount = int.Parse(message.MessageAttributes[SQSConstans.ReceiveCountKey].StringValue);
-                var sendMessageRequest = this.sendMessageRequestFactory.CreateSendMessage(message, receiveCount + 1);
+                var sendMessageRequest = this.sendMessageRequestFactory.CreateSendMessage(message.Body, type, receiveCount + 1);
                 var sendMessageResponse = await this.SQSClient.SendMessageAsync(sendMessageRequest);
                 this.logger.LogInformation($"Resend message (id:{message.MessageId})");
             }

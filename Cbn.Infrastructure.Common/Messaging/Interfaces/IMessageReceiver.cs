@@ -7,7 +7,5 @@ namespace Cbn.Infrastructure.Common.Messaging.Interfaces
         Task<int> ExecuteAsync();
     }
     public interface IMessageReceiver<T> : IMessageReceiver where T : class
-    {
-        T Parameter { get; }
-    }
+    { }
 }

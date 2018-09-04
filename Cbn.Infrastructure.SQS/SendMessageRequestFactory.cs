@@ -20,13 +20,17 @@ namespace Cbn.Infrastructure.SQS
         }
         public SendMessageRequest CreateSendMessage(object message, Type type, int receiveCount = 0)
         {
+            var json = JsonConvert.SerializeObject(message);
+            return this.CreateSendMessage(json, type, receiveCount);
+        }
+        public SendMessageRequest CreateSendMessage(string message, Type type, int receiveCount = 0)
+        {
             if (!config.SQSQueueSettingDictionary.TryGetValue(type.Name, out var queueSetting))
             {
                 queueSetting = config.DefaultSQSQueueSetting;
             }
-            var json = JsonConvert.SerializeObject(message);
             var queueUrl = this.CreateUrl(queueSetting, receiveCount);
-            var sendMessageRequest = new SendMessageRequest(queueUrl, json)
+            var sendMessageRequest = new SendMessageRequest(queueUrl, message)
             {
                 DelaySeconds = this.sqsHelper.ComputeDelaySeconds(queueSetting.DelayType, queueSetting.FirstDelaySeconds, receiveCount),
                 MessageAttributes = this.sqsHelper.CreateMessageAttributes(type, receiveCount),

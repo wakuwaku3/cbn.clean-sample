@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Cbn.CleanSample.Domain.Account.Models;
 using Cbn.Infrastructure.Common.Messaging.Interfaces;
@@ -7,16 +8,21 @@ namespace Cbn.CleanSample.Messaging.Subscriber.Receivers
 {
     public class WelcomeMailSender : IMessageReceiver<WelcomeMailArgs>
     {
-        public WelcomeMailSender(WelcomeMailArgs parameter)
-        {
-            this.Parameter = parameter;
-        }
-        public WelcomeMailArgs Parameter { get; }
+        private WelcomeMailArgs args;
+        private CancellationTokenSource source;
 
-        public Task<int> ExecuteAsync()
+        public WelcomeMailSender(
+            CancellationTokenSource source,
+            WelcomeMailArgs args)
         {
-            Console.WriteLine($"{this.Parameter.Email} {this.Parameter.Name}");
-            return Task.FromResult(0);
+            this.source = source;
+            this.args = args;
+        }
+
+        public async Task<int> ExecuteAsync()
+        {
+            Console.WriteLine($"{this.args.Email} {this.args.Name}");
+            return await Task.FromResult(0);
         }
     }
 }
